@@ -1,0 +1,349 @@
+ar:
+  app_name: "حجز"
+
+  # Navigation
+  nav:
+    home: "الرئيسية"
+    businesses: "الأعمال"
+    categories: "الفئات"
+    bookings: "حجوزاتي"
+    dashboard: "لوحة التحكم"
+    profile: "الملف الشخصي"
+    subscriptions: "الاشتراكات"
+    sign_in: "تسجيل الدخول"
+    sign_up: "إنشاء حساب"
+    sign_out: "تسجيل الخروج"
+
+  # Common terms  
+  common:
+    search: "بحث"
+    filter: "تصفية"
+    save: "حفظ"
+    cancel: "إلغاء"
+    delete: "حذف"
+    edit: "تعديل"
+    view: "عرض"
+    back: "رجوع"
+    submit: "إرسال"
+    loading: "جاري التحميل..."
+    welcome: "مرحباً"
+    or: "أو"
+    and: "و"
+    language_changed: "تم تغيير اللغة بنجاح"
+    invalid_language: "اختيار لغة غير صحيح"
+
+  # Home page
+  home:
+    hero_title: "احجز الخدمات بسهولة"
+    hero_subtitle: "اكتشف الخدمات المحلية الموثوقة"
+    browse_button: "تصفح الخدمات"
+    list_business: "أضف عملك"
+
+    features:
+      title: "المميزات"
+      subtitle: "طريقة أفضل لحجز الخدمات"
+      description: "كل ما تحتاجه لإدارة حجوزاتك ومواعيدك في مكان واحد."
+
+      easy_booking:
+        title: "حجز سهل"
+        description: "احجز المواعيد بنقرات قليلة فقط. لا مكالمات هاتفية، لا تعقيدات."
+
+      real_time:
+        title: "التوافر الفوري"
+        description: "شاهد الأوقات المتاحة فوراً واختر ما يناسبك."
+
+      notifications:
+        title: "إشعارات فورية"
+        description: "احصل على تذكيرات وتحديثات عن حجوزاتك عبر البريد الإلكتروني."
+
+      trusted:
+        title: "مقدمو خدمات موثوقون"
+        description: "جميع مقدمي الخدمات موثقون ومُقيَّمون من قبل مجتمعنا."
+
+      secure:
+        title: "آمن ومحمي"
+        description: "بياناتك مشفرة وآمنة. نحن نأخذ خصوصيتك على محمل الجد."
+
+      payments:
+        title: "دفع مرن"
+        description: "ادفع عبر الإنترنت أو شخصياً. خيارات دفع متعددة متاحة."
+
+    cta:
+      title: "هل أنت مستعد للبدء؟"
+      subtitle: "أنشئ حسابك اليوم."
+      get_started: "ابدأ الآن"
+      learn_more: "اعرف المزيد"
+
+  # Bookings
+  bookings:
+    common:
+      cancel_confirm: "هل أنت متأكد أنك تريد إلغاء هذا الحجز؟"
+    index:
+      title: "حجوزاتي"
+      subtitle: "إدارة جميع مواعيدك في مكان واحد"
+      stats:
+        total: "الإجمالي"
+        upcoming: "القادمة"
+        past: "السابقة"
+      sections:
+        upcoming:
+          title: "المواعيد القادمة"
+          count:
+            one: "حجز واحد قادم"
+            other: "%{count} حجوزات قادمة"
+        past:
+          title: "المواعيد السابقة"
+          count:
+            one: "حجز واحد مكتمل"
+            other: "%{count} حجوزات مكتملة"
+      empty:
+        title: "لا توجد حجوزات بعد"
+        description: "ابدأ باستكشاف خدماتنا واحجز موعدك الأول اليوم"
+        browse_services: "تصفح الخدمات"
+    show:
+      title: "تأكيد الحجز"
+      back_to_bookings: "العودة إلى الحجوزات"
+      confirmed_message: "تم تأكيد موعدك"
+      service_details:
+        title: "تفاصيل الخدمة"
+        service: "الخدمة"
+        business: "المنشأة"
+        category: "الفئة"
+      appointment:
+        title: "وقت الموعد"
+        datetime: "التاريخ والوقت"
+        duration: "المدة"
+        price: "السعر"
+      notes:
+        title: "ملاحظات إضافية"
+      qr:
+        title: "رمز الاستجابة السريعة للحجز"
+        alt: "رمز QR للحجز"
+        show_code: "أظهر رمز QR هذا"
+        at_appointment: "عند موعدك"
+        screenshot: "التقط لقطة شاشة أو قم بتنزيل رمز QR للوصول بسهولة"
+        not_available: "رمز QR غير متوفر"
+      booking_id: "رقم الحجز"
+      back_to_all: "العودة إلى جميع الحجوزات"
+      edit_booking: "تعديل الحجز"
+      cancel_confirm: "هل أنت متأكد أنك تريد إلغاء هذا الحجز؟ لا يمكن التراجع عن هذا الإجراء."
+      cancel_booking: "إلغاء الحجز"
+      help:
+        title: "معلومات مهمة"
+        arrive_early: "يرجى الحضور قبل 5-10 دقائق من موعدك المحدد"
+        bring_qr: "أحضر رمز QR (لقطة شاشة أو مطبوع) لتقديمه عند التسجيل"
+        cancel_policy: "إذا كنت بحاجة إلى الإلغاء أو إعادة الجدولة، يرجى القيام بذلك قبل 24 ساعة على الأقل"
+        contact_business: "تواصل مع %{business} مباشرة لأي استفسارات"
+    new:
+      title: "احجز %{service}"
+      back: "رجوع"
+      step_indicator: "الخطوة %{current} من %{total}"
+      header_title: "احجز موعدك"
+      subtitle: "اختر تاريخ ووقت مناسبين لـ %{service}"
+    edit:
+      title: "تعديل الحجز"
+      header_title: "تعديل الحجز"
+      show_booking: "عرض هذا الحجز"
+      back_to_bookings: "العودة إلى الحجوزات"
+    form:
+      errors_title:
+        one: "خطأ واحد منع إتمام هذا الحجز"
+        other: "%{count} أخطاء منعت إتمام هذا الحجز"
+      select_date:
+        title: "اختر التاريخ"
+        subtitle: "اختر تاريخ الموعد المفضل لديك"
+        hint: "يتم تحديث الأوقات تلقائيًا عند اختيار التاريخ"
+      choose_time:
+        title: "اختر الوقت"
+        available:
+          one: "موعد واحد متاح في %{date}"
+          other: "%{count} مواعيد متاحة في %{date}"
+        none: "لا توجد أوقات متاحة للتاريخ المحدد"
+        empty_title: "لا توجد أوقات متاحة"
+        empty_description: "يرجى اختيار تاريخ مختلف لعرض الأوقات المتاحة"
+      notes:
+        title: "معلومات إضافية"
+        subtitle: "اختياري - أي طلبات خاصة؟"
+        placeholder: "مثال: أفضل الجلوس بجانب النافذة، أحتاج وقتًا إضافيًا، لدي متطلبات محددة..."
+        hint: "أخبرنا إذا كانت لديك أي متطلبات أو تفضيلات خاصة"
+      sticky:
+        secure_note: "حجز آمن • لا يلزم الدفع"
+        confirm: "تأكيد الحجز"
+        processing: "جاري المعالجة..."
+    _booking:
+      user: "المستخدم"
+      service: "الخدمة"
+      start_time: "وقت البدء"
+      end_time: "وقت الانتهاء"
+      status: "الحالة"
+      qr_code: "رمز QR"
+      notes: "ملاحظات"
+    _booking_card:
+      service_fee: "رسوم الخدمة"
+    title: "حجوزاتي"
+    subtitle: "إدارة جميع مواعيدك"
+    upcoming: "القادمة"
+    past: "السابقة"
+    no_bookings: "لا توجد حجوزات بعد"
+    browse_services: "تصفح الخدمات"
+    view: "عرض"
+    edit: "تعديل"
+    cancel: "إلغاء"
+    confirm_cancel: "هل أنت متأكد من إلغاء هذا الحجز؟"
+
+  # Businesses
+  businesses:
+    title: "اكتشف الأعمال"
+    subtitle: "ابحث واحجز الخدمات من مقدمي الخدمات المحليين الموثوقين"
+    search_placeholder: "ابحث عن الأعمال..."
+    filters: "الفلاتر"
+    new_business: "عمل جديد"
+    no_businesses: "لا توجد أعمال"
+    no_businesses_subtitle: "ابدأ بإنشاء عملك الأول"
+    create_business: "إنشاء عمل"
+    filter_category: "تصفية حسب الفئة"
+    all_categories: "جميع الفئات"
+    view_services: "عرض الخدمات"
+    open_now: "مفتوح الآن"
+    closed: "مغلق"
+
+  # Categories
+  categories:
+    common:
+      name: "الاسم"
+      description: "الوصف"
+      no_description: "لا توجد وصف متاح"
+      delete_confirm: "هل أنت متأكد من رغبتك في حذف هذه الفئة؟"
+    index:
+      title: "فئات الخدمات"
+      subtitle: "تصفح وإدارة فئات الخدمات"
+      new: "فئة جديدة"
+      search_placeholder: "ابحث في الفئات..."
+      view_details: "عرض التفاصيل"
+      no_results:
+        title: "لا توجد فئات"
+        description: "ابدأ بإنشاء أول فئة لك"
+        create: "إنشاء فئة"
+    show:
+      description_title: "الوصف"
+      no_description: "لا يوجد وصف متاح لهذه الفئة."
+      back: "العودة إلى الفئات"
+      edit: "تعديل الفئة"
+      delete: "حذف الفئة"
+    new:
+      title: "فئة جديدة"
+      header_title: "إنشاء فئة جديدة"
+      subtitle: "أضف فئة خدمات جديدة لتنظيم خدماتك"
+    edit:
+      title: "تعديل الفئة"
+      header_title: "تعديل الفئة"
+      view_category: "عرض الفئة"
+      subtitle: "قم بتحديث تفاصيل الفئة أدناه"
+    form:
+      section_title: "معلومات الفئة"
+      name_label: "اسم الفئة"
+      name_placeholder: "مثال: الصحة والرفاهية"
+      description_label: "الوصف"
+      description_placeholder: "أضف وصفًا موجزًا لهذه الفئة..."
+      description_help: "اختياري: أضف وصفًا لمساعدة المستخدمين على فهم هذه الفئة"
+      create: "إنشاء فئة"
+      update: "تحديث الفئة"
+    title: "الفئات"
+    name: "الاسم"
+    description: "الوصف"
+    new: "فئة جديدة"
+    edit: "تعديل الفئة"
+    delete: "حذف الفئة"
+    confirm_delete: "هل أنت متأكد؟"
+
+  # Dashboard
+  dashboard:
+    title: "لوحة التحكم"
+    welcome: "مرحباً بعودتك"
+    overview: "نظرة عامة على حجوزاتك ونشاطك"
+    analytics: "التحليلات والرؤى لأعمالك"
+    system_analytics: "تحليلات ورؤى على مستوى النظام"
+
+    # Dashboard Types
+    client_title: "لوحة تحكم العميل"
+    owner_title: "لوحة تحكم صاحب العمل"
+    admin_title: "لوحة تحكم المدير"
+    business_dashboard: "لوحة تحكم الأعمال"
+    administrator: "مدير النظام"
+
+    # Stats
+    total_bookings: "إجمالي الحجوزات"
+    total_revenue: "إجمالي الإيرادات"
+    monthly_revenue: "هذا الشهر"
+    upcoming: "القادمة"
+    pending: "قيد الانتظار"
+    confirmed: "مؤكدة"
+    completed: "مكتملة"
+    cancelled: "ملغاة"
+    today: "اليوم"
+    total_users: "إجمالي المستخدمين"
+    businesses: "الأعمال"
+    clients: "العملاء"
+    owners: "الملاك"
+    services: "الخدمات"
+
+    # Charts
+    booking_trends: "اتجاهات الحجوزات (آخر 6 أشهر)"
+    bookings_by_status: "الحجوزات حسب الحالة"
+    revenue_trend_12: "اتجاه الإيرادات (آخر 12 شهراً)"
+    daily_bookings_30: "الحجوزات اليومية (آخر 30 يوماً)"
+    top_services: "أفضل الخدمات حسب الحجوزات"
+    revenue_by_service: "الإيرادات حسب الخدمة (أفضل 5)"
+    user_growth_12: "نمو المستخدمين (آخر 12 شهراً)"
+    business_growth_12: "نمو الأعمال (آخر 12 شهراً)"
+    booking_trend_12: "اتجاه الحجوزات (آخر 12 شهراً)"
+    users_by_role: "المستخدمون حسب الدور"
+    top_businesses: "أفضل الأعمال حسب الحجوزات"
+    businesses_by_category: "الأعمال حسب الفئة"
+
+    # Sections
+    upcoming_bookings: "الحجوزات القادمة"
+    upcoming_bookings_7: "الحجوزات القادمة (الأيام السبعة القادمة)"
+    todays_bookings: "حجوزات اليوم"
+    recent_bookings: "الحجوزات الأخيرة"
+    recent_users: "المستخدمون الجدد"
+    recent_businesses: "الأعمال الجديدة"
+
+    # Messages
+    no_upcoming: "لا توجد حجوزات قادمة"
+    no_appointments: "ليس لديك أي مواعيد قادمة"
+    no_recent: "لا توجد حجوزات أخيرة"
+    no_bookings_7: "لا توجد حجوزات مجدولة للأيام السبعة القادمة"
+
+    # Actions
+    view_details: "عرض التفاصيل"
+    browse_services: "تصفح الخدمات"
+
+  # Profile
+  profile:
+    title: "ملفي الشخصي"
+    subtitle: "إدارة حسابك"
+    name: "الاسم"
+    email: "البريد الإلكتروني"
+    update: "تحديث الملف الشخصي"
+
+  # Subscriptions
+  subscriptions:
+    monthly: "اشتراك شهري"
+    price_month: "ريال / شهر"
+    subscribe: "اشترك الآن"
+    trial: "تجربة مجانية"
+    active: "نشط"
+    expired: "منتهي"
+    trial_started: "بدأت فترة التجربة المجانية لمدة أسبوعين! يمكنك الآن إنشاء عملك."
+    subscription_required: "تحتاج إلى اشتراك نشط لإنشاء الأعمال. اشترك الآن للبدء!"
+    subscribe_now_button: "اشترك الآن"
+    no_subscription: "لا يوجد اشتراك نشط"
+    subscription_needed_title: "الاشتراك مطلوب"
+    subscription_needed_message: "لإنشاء وإدارة الأعمال، تحتاج إلى اشتراك نشط. ابدأ تجربتك المجانية أو اشترك الآن للبدء."
+    start_free_trial: "ابدأ التجربة المجانية"
+    already_subscribed: "لديك بالفعل اشتراك نشط."
+    trial_not_available: "التجربة المجانية غير متاحة. يمكنك الاشتراك للمتابعة."
+    trial_option_title: "ابدأ تجربتك المجانية"
+    trial_option_description: "احصل على أسبوعين من الوصول الكامل لجميع الميزات، مجانًا تمامًا. لا حاجة لبطاقة ائتمان."
+    or_pay_now: "أو ادفع الآن للبدء فورًا"

@@ -1,0 +1,24 @@
+<% content_for :title, "Edit #{@business.name}" %>
+
+<!-- Back Button -->
+<div class="mb-6">
+  <%= link_to @business, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Back to Business
+  <% end %>
+</div>
+
+<!-- Page Header -->
+<div class="max-w-3xl mx-auto mb-8">
+  <div class="text-center">
+    <h1 class="text-4xl font-bold text-gray-900 mb-3">Edit Business</h1>
+    <p class="text-lg text-gray-600">Update your business information</p>
+  </div>
+</div>
+
+<!-- Form Container -->
+<div class="max-w-3xl mx-auto">
+  <%= render "form", business: @business %>
+</div>

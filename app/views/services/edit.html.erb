@@ -1,0 +1,33 @@
+<% content_for :title, "Edit #{@service.name}" %>
+
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-4">
+        <%= link_to business_services_path(@business), class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition group" do %>
+          <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          <span class="text-sm font-medium">Back to Services</span>
+        <% end %>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="flex-shrink-0">
+          <div class="w-16 h-16 bg-yellow-500 rounded-2xl flex items-center justify-center shadow-lg shadow-yellow-500/30">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">Edit Service</h1>
+          <p class="text-gray-600">Update <span class="font-medium text-gray-900"><%= @service.name %></span> for <%= @business.name %></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <%= render 'form', service: @service %>
+  </div>
+</div>

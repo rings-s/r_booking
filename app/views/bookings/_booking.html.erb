@@ -1,0 +1,30 @@
+<div id="<%= dom_id booking %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1"><%= t('.user') %>:</strong>
+    <%= booking.user_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1"><%= t('.service') %>:</strong>
+    <%= booking.service_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1"><%= t('.start_time') %>:</strong>
+    <%= booking.start_time %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1"><%= t('.end_time') %>:</strong>
+    <%= booking.end_time %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1"><%= t('.status') %>:</strong>
+    <%= booking.status %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1"><%= t('.qr_code') %>:</strong>
+    <%= booking.qr_code %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1"><%= t('.notes') %>:</strong>
+    <%= booking.notes %>
+  </div>
+</div>

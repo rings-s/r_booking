@@ -1,0 +1,311 @@
+<% content_for :title, 'Dashboard - Admin Panel' %>
+
+<!-- Dashboard Header -->
+<div class="mb-8">
+  <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+  <p class="mt-2 text-gray-600">Overview of platform statistics and analytics</p>
+</div>
+
+<!-- Summary Statistics Cards -->
+<div class="grid grid-cols-1 gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
+  <!-- Total Users -->
+  <div class="bg-white rounded-lg shadow p-6 border border-gray-200">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-600">Total Users</p>
+        <p class="mt-2 text-3xl font-bold text-gray-900"><%= @total_users %></p>
+      </div>
+      <div class="p-3 bg-gray-100 rounded-full">
+        <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Users This Month -->
+  <div class="bg-white rounded-lg shadow p-6 border border-gray-200">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-600">New This Month</p>
+        <p class="mt-2 text-3xl font-bold text-gray-900"><%= @new_users_this_month %></p>
+      </div>
+      <div class="p-3 bg-gray-100 rounded-full">
+        <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Bookings -->
+  <div class="bg-white rounded-lg shadow p-6 border border-gray-200">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-600">Total Bookings</p>
+        <p class="mt-2 text-3xl font-bold text-gray-900"><%= @total_bookings %></p>
+      </div>
+      <div class="p-3 bg-gray-100 rounded-full">
+        <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Businesses -->
+  <div class="bg-white rounded-lg shadow p-6 border border-gray-200">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-600">Total Businesses</p>
+        <p class="mt-2 text-3xl font-bold text-gray-900"><%= @total_businesses %></p>
+      </div>
+      <div class="p-3 bg-gray-100 rounded-full">
+        <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Charts Section -->
+<div class="space-y-6">
+  <!-- Top Row: Two Charts Side by Side -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- Chart 1: Line Chart - Registrations Over Time -->
+    <div class="bg-white rounded-lg shadow border border-gray-200" data-controller="chart-tabs chartkick">
+      <!-- Tabs Header -->
+      <div class="border-b border-gray-200 px-6 pt-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-3">Growth Over Time (Last 6 Months)</h2>
+        <div class="flex gap-4 -mb-px">
+          <button data-chart-tabs-target="tab"
+                  data-tab="users"
+                  data-action="click->chart-tabs#switch"
+                  class="pb-3 px-1 border-b-2 font-medium text-sm transition-colors text-gray-900 border-gray-900">
+            Users
+          </button>
+          <button data-chart-tabs-target="tab"
+                  data-tab="businesses"
+                  data-action="click->chart-tabs#switch"
+                  class="pb-3 px-1 border-b-2 font-medium text-sm transition-colors text-gray-600 border-transparent hover:text-gray-900">
+            Businesses
+          </button>
+          <button data-chart-tabs-target="tab"
+                  data-tab="bookings"
+                  data-action="click->chart-tabs#switch"
+                  class="pb-3 px-1 border-b-2 font-medium text-sm transition-colors text-gray-600 border-transparent hover:text-gray-900">
+            Bookings
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabs Content -->
+      <div class="p-6">
+        <!-- Users Panel -->
+        <div data-chart-tabs-target="panel" data-panel="users" class="h-64">
+          <%= line_chart @line_users,
+              colors: ['#374151'],
+              height: '256px',
+              library: {
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                  y: { ticks: { color: '#4b5563' }, grid: { color: '#e5e7eb' } },
+                  x: { ticks: { color: '#4b5563' }, grid: { display: false } }
+                }
+              } %>
+        </div>
+
+        <!-- Businesses Panel -->
+        <div data-chart-tabs-target="panel" data-panel="businesses" class="h-64 hidden">
+          <%= line_chart @line_businesses,
+              colors: ['#4b5563'],
+              height: '256px',
+              library: {
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                  y: { ticks: { color: '#4b5563' }, grid: { color: '#e5e7eb' } },
+                  x: { ticks: { color: '#4b5563' }, grid: { display: false } }
+                }
+              } %>
+        </div>
+
+        <!-- Bookings Panel -->
+        <div data-chart-tabs-target="panel" data-panel="bookings" class="h-64 hidden">
+          <%= line_chart @line_bookings,
+              colors: ['#1f2937'],
+              height: '256px',
+              library: {
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                  y: { ticks: { color: '#4b5563' }, grid: { color: '#e5e7eb' } },
+                  x: { ticks: { color: '#4b5563' }, grid: { display: false } }
+                }
+              } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 2: Doughnut Chart - Recent vs Older -->
+    <div class="bg-white rounded-lg shadow border border-gray-200" data-controller="chart-tabs chartkick">
+      <!-- Tabs Header -->
+      <div class="border-b border-gray-200 px-6 pt-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-3">Recent Activity (Last 30 Days)</h2>
+        <div class="flex gap-4 -mb-px">
+          <button data-chart-tabs-target="tab"
+                  data-tab="users"
+                  data-action="click->chart-tabs#switch"
+                  class="pb-3 px-1 border-b-2 font-medium text-sm transition-colors text-gray-900 border-gray-900">
+            Users
+          </button>
+          <button data-chart-tabs-target="tab"
+                  data-tab="businesses"
+                  data-action="click->chart-tabs#switch"
+                  class="pb-3 px-1 border-b-2 font-medium text-sm transition-colors text-gray-600 border-transparent hover:text-gray-900">
+            Businesses
+          </button>
+          <button data-chart-tabs-target="tab"
+                  data-tab="bookings"
+                  data-action="click->chart-tabs#switch"
+                  class="pb-3 px-1 border-b-2 font-medium text-sm transition-colors text-gray-600 border-transparent hover:text-gray-900">
+            Bookings
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabs Content -->
+      <div class="p-6">
+        <!-- Users Panel -->
+        <div data-chart-tabs-target="panel" data-panel="users" class="h-64 flex items-center justify-center">
+          <%= pie_chart @doughnut_users,
+              donut: true,
+              colors: ['#1f2937', '#9ca3af'],
+              height: '256px',
+              library: {
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    position: 'bottom',
+                    labels: { color: '#4b5563', font: { size: 13 }, padding: 12 }
+                  }
+                }
+              } %>
+        </div>
+
+        <!-- Businesses Panel -->
+        <div data-chart-tabs-target="panel" data-panel="businesses" class="h-64 flex items-center justify-center hidden">
+          <%= pie_chart @doughnut_businesses,
+              donut: true,
+              colors: ['#4b5563', '#d1d5db'],
+              height: '256px',
+              library: {
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    position: 'bottom',
+                    labels: { color: '#4b5563', font: { size: 13 }, padding: 12 }
+                  }
+                }
+              } %>
+        </div>
+
+        <!-- Bookings Panel -->
+        <div data-chart-tabs-target="panel" data-panel="bookings" class="h-64 flex items-center justify-center hidden">
+          <%= pie_chart @doughnut_bookings,
+              donut: true,
+              colors: ['#374151', '#9ca3af'],
+              height: '256px',
+              library: {
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    position: 'bottom',
+                    labels: { color: '#4b5563', font: { size: 13 }, padding: 12 }
+                  }
+                }
+              } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Row: Full Width Bar Chart -->
+  <div class="bg-white rounded-lg shadow border border-gray-200" data-controller="chart-tabs chartkick">
+    <!-- Tabs Header -->
+    <div class="border-b border-gray-200 px-6 pt-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-3">Distribution & Overview</h2>
+      <div class="flex gap-4 -mb-px">
+        <button data-chart-tabs-target="tab"
+                data-tab="users"
+                data-action="click->chart-tabs#switch"
+                class="pb-3 px-1 border-b-2 font-medium text-sm transition-colors text-gray-900 border-gray-900">
+          Users
+        </button>
+        <button data-chart-tabs-target="tab"
+                data-tab="businesses"
+                data-action="click->chart-tabs#switch"
+                class="pb-3 px-1 border-b-2 font-medium text-sm transition-colors text-gray-600 border-transparent hover:text-gray-900">
+          Businesses
+        </button>
+        <button data-chart-tabs-target="tab"
+                data-tab="bookings"
+                data-action="click->chart-tabs#switch"
+                class="pb-3 px-1 border-b-2 font-medium text-sm transition-colors text-gray-600 border-transparent hover:text-gray-900">
+          Bookings
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabs Content -->
+    <div class="p-6">
+      <!-- Users Panel -->
+      <div data-chart-tabs-target="panel" data-panel="users" class="h-80">
+        <%= column_chart @bar_users,
+            colors: ['#1f2937', '#4b5563', '#6b7280'],
+            height: '320px',
+            library: {
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: {
+                y: { ticks: { color: '#4b5563', font: { size: 12 } }, grid: { color: '#e5e7eb' } },
+                x: { ticks: { color: '#4b5563', font: { size: 13 } }, grid: { display: false } }
+              }
+            } %>
+      </div>
+
+      <!-- Businesses Panel -->
+      <div data-chart-tabs-target="panel" data-panel="businesses" class="h-80 hidden">
+        <%= column_chart @bar_businesses,
+            colors: ['#374151', '#4b5563', '#6b7280', '#9ca3af'],
+            height: '320px',
+            library: {
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: {
+                y: { ticks: { color: '#4b5563', font: { size: 12 } }, grid: { color: '#e5e7eb' } },
+                x: { ticks: { color: '#4b5563', font: { size: 13 } }, grid: { display: false } }
+              }
+            } %>
+      </div>
+
+      <!-- Bookings Panel -->
+      <div data-chart-tabs-target="panel" data-panel="bookings" class="h-80 hidden">
+        <%= column_chart @bar_bookings,
+            colors: ['#1f2937', '#4b5563', '#6b7280'],
+            height: '320px',
+            library: {
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: {
+                y: { ticks: { color: '#4b5563', font: { size: 12 } }, grid: { color: '#e5e7eb' } },
+                x: { ticks: { color: '#4b5563', font: { size: 13 } }, grid: { display: false } }
+              }
+            } %>
+      </div>
+    </div>
+  </div>
+</div>

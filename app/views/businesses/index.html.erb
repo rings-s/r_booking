@@ -1,0 +1,147 @@
+<% content_for :title, t('businesses.title') %>
+
+<!-- Business Filter Container with Stimulus Controller -->
+<div data-controller="business-filter">
+  <!-- Header Section -->
+  <div class="mb-12">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <!-- Title and Description -->
+      <div class="flex-1">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2"><%= t('businesses.title') %></h1>
+        <p class="text-gray-600"><%= t('businesses.subtitle') %></p>
+      </div>
+
+      <!-- Action Buttons -->
+      <% if user_signed_in? && (current_user.owner? || current_user.admin?) %>
+        <div class="flex items-center gap-3">
+          <%= link_to new_business_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            <%= t('businesses.new_business') %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Search and Filter Bar -->
+    <div class="mt-8">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <!-- Search Input with RTL Support -->
+        <div class="flex-1 relative">
+          <div class="absolute inset-y-0 <%= I18n.locale == :ar ? 'right-0 pr-3' : 'left-0 pl-3' %> flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <input
+            type="text"
+            placeholder="<%= t('businesses.search_placeholder') %>"
+            data-business-filter-target="searchInput"
+            data-action="input->business-filter#search"
+            class="block w-full <%= I18n.locale == :ar ? 'pr-10 pl-3' : 'pl-10 pr-3' %> py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+        </div>
+
+        <!-- Filter Toggle Button -->
+        <button
+          data-business-filter-target="filterButton"
+          data-action="click->business-filter#toggleFilters"
+          class="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 rounded-lg bg-white hover:bg-gray-50 transition">
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+          </svg>
+          <span class="font-medium text-gray-700"><%= t('businesses.filters') %></span>
+        </button>
+      </div>
+
+      <!-- Collapsible Filter Panel -->
+      <div
+        data-business-filter-target="filterPanel"
+        class="hidden mt-4 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <h3 class="text-lg font-semibold text-gray-900"><%= t('businesses.filter_category') %></h3>
+          <button
+            data-action="click->business-filter#clearFilters"
+            class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+            <%= t('common.cancel') %>
+          </button>
+        </div>
+
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap gap-3">
+          <!-- All Categories Button -->
+          <button
+            data-category-id="all"
+            data-action="click->business-filter#filterByCategory"
+            class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-gray-900 text-white">
+            <%= t('businesses.all_categories') %>
+          </button>
+
+          <!-- Dynamic Category Buttons -->
+          <% @categories.each do |category| %>
+            <button
+              data-category-id="<%= category.id %>"
+              data-action="click->business-filter#filterByCategory"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-white text-gray-700 hover:bg-gray-50 border border-gray-300">
+              <%= category.name %>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Businesses Grid -->
+  <div id="businesses">
+    <% if @businesses.any? %>
+      <div id="business-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @businesses.each do |business| %>
+          <%= render 'business_card', business: business %>
+        <% end %>
+      </div>
+
+      <!-- Empty State (Hidden by Default, Shown When No Results) -->
+      <div id="empty-state" class="hidden text-center py-16">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+          <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-medium text-gray-900 mb-2"><%= t('businesses.no_businesses') %></h3>
+        <p class="text-gray-500 mb-6"><%= t('businesses.no_businesses_subtitle') %></p>
+      </div>
+    <% else %>
+      <!-- Empty State (No Businesses at All) -->
+      <div class="text-center py-16">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+          <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-medium text-gray-900 mb-2"><%= t('businesses.no_businesses') %></h3>
+        <p class="text-gray-500 mb-6"><%= t('businesses.no_businesses_subtitle') %></p>
+        <% if user_signed_in? && (current_user.owner? || current_user.admin?) %>
+          <%= link_to t('businesses.create_business'), new_business_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- CSS Animations for Smooth Transitions -->
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+</style>

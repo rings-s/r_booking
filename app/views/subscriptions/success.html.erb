@@ -1,0 +1,136 @@
+<% content_for :title, "Payment Successful" %>
+
+<div class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-12">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Success Animation -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-green-600 to-emerald-700 rounded-full mb-6 shadow-2xl shadow-green-500/30 animate-bounce">
+        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+        Payment Successful!
+      </h1>
+      <p class="text-lg text-gray-600">
+        Your subscription is now active. Welcome to R_Booking!
+      </p>
+    </div>
+
+    <!-- Success Card -->
+    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden mb-8">
+      <!-- Header -->
+      <div class="bg-gradient-to-br from-green-600 to-emerald-700 px-8 py-8 text-white">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-2xl font-bold mb-2">Monthly Subscription</h2>
+            <p class="text-green-100">Active until <%= @subscription.current_period_end.strftime('%B %d, %Y') %></p>
+          </div>
+          <div class="text-right">
+            <div class="text-5xl font-bold"><%= number_to_currency(@subscription.amount, unit: '', precision: 0) %></div>
+            <div class="text-green-100 text-sm">SAR / month</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Details -->
+      <div class="px-8 py-8">
+        <div class="space-y-6">
+          <!-- Success Message -->
+          <div class="flex items-start gap-4 p-6 bg-green-50 border-2 border-green-200 rounded-2xl">
+            <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <div class="flex-1">
+              <p class="font-semibold text-green-900 text-lg mb-2">Thank you for subscribing!</p>
+              <p class="text-green-700">
+                Your payment has been processed successfully. You now have full access to all R_Booking features.
+              </p>
+            </div>
+          </div>
+
+          <!-- What's Next -->
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-4">What's next?</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="inline-flex items-center justify-center w-6 h-6 bg-blue-600 text-white rounded-full text-sm font-bold flex-shrink-0">1</span>
+                <div>
+                  <p class="font-semibold text-gray-900">Create your first business</p>
+                  <p class="text-sm text-gray-600">Set up your business profile with details and images</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="inline-flex items-center justify-center w-6 h-6 bg-blue-600 text-white rounded-full text-sm font-bold flex-shrink-0">2</span>
+                <div>
+                  <p class="font-semibold text-gray-900">Add your services</p>
+                  <p class="text-sm text-gray-600">List all services you offer with pricing and duration</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="inline-flex items-center justify-center w-6 h-6 bg-blue-600 text-white rounded-full text-sm font-bold flex-shrink-0">3</span>
+                <div>
+                  <p class="font-semibold text-gray-900">Start accepting bookings</p>
+                  <p class="text-sm text-gray-600">Share your business page and start receiving bookings</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Subscription Details -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-200">
+            <div>
+              <label class="block text-sm font-medium text-gray-500 mb-1">Subscription Status</label>
+              <div class="text-lg font-semibold text-gray-900">
+                <% if @subscription.in_trial? %>
+                  Trial Period
+                <% else %>
+                  Active
+                <% end %>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-500 mb-1">Next Billing Date</label>
+              <div class="text-lg font-semibold text-gray-900">
+                <%= @subscription.current_period_end.strftime('%B %d, %Y') %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="px-8 py-6 bg-gray-50 border-t border-gray-200">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <%= link_to new_business_path, class: "flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-md hover:shadow-lg transition-all" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+            </svg>
+            Create Your Business
+          <% end %>
+
+          <%= link_to subscription_path(@subscription), class: "flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 bg-white hover:bg-gray-50 border-2 border-gray-300 hover:border-gray-400 text-gray-700 rounded-xl font-semibold transition-all" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+            View Subscription
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Support Info -->
+    <div class="text-center">
+      <p class="text-gray-600 mb-4">
+        Need help getting started? Check out our documentation or contact support.
+      </p>
+      <%= link_to dashboard_path, class: "inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors" do %>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        Go to Dashboard
+      <% end %>
+    </div>
+  </div>
+</div>

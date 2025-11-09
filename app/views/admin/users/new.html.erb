@@ -1,0 +1,21 @@
+<% content_for :title, 'New User - Admin Panel' %>
+
+<div class="max-w-2xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center gap-4 mb-4">
+      <%= link_to admin_users_path, class: "text-gray-600 hover:text-gray-900 transition" do %>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+      <% end %>
+      <h1 class="text-3xl font-bold text-gray-900">Create New User</h1>
+    </div>
+    <p class="text-gray-600">Add a new user to the system</p>
+  </div>
+
+  <!-- Form Card -->
+  <div class="bg-white rounded-lg shadow p-8 border border-gray-200">
+    <%= render 'form', user: @user %>
+  </div>
+</div>

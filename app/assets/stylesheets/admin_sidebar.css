@@ -1,0 +1,138 @@
+/* Admin Sidebar Styles */
+
+/* Sidebar container with smooth width transitions */
+.sidebar-container {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Collapsed sidebar state */
+.sidebar-collapsed {
+  overflow: visible !important;
+}
+
+/* Navigation links in collapsed state - center icons */
+.sidebar-collapsed .nav-link {
+  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Collapsed sidebar footer - center avatar */
+.sidebar-collapsed .sidebar-footer > div {
+  justify-content: center;
+}
+
+/* Smooth scrolling for sidebar content */
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: rgba(31, 41, 55, 0.5);
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 3px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.7);
+}
+
+/* Enhanced tooltip-like behavior on hover for collapsed state */
+.sidebar-collapsed .nav-link {
+  position: relative;
+}
+
+.sidebar-collapsed .nav-link:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: calc(100% + 0.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1f2937;
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  z-index: 50;
+  pointer-events: none;
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+/* Tooltip animation */
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* Admin table hover effects */
+table tbody tr {
+  transition: background-color 0.15s ease-in-out;
+}
+
+/* Chart container responsive heights */
+.chart-container {
+  min-height: 300px;
+}
+
+/* Gray-scale focus states for accessibility */
+*:focus-visible {
+  outline: 2px solid #1f2937;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for buttons and links */
+button, a {
+  transition: all 0.15s ease-in-out;
+}
+
+/* Card shadow hover effects */
+.bg-white {
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.bg-white:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Loading states */
+@keyframes pulse-gray {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.loading {
+  animation: pulse-gray 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Notification animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.notification {
+  animation: slideInRight 0.3s ease-out;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" dir="<%= I18n.locale == :ar ? 'rtl' : 'ltr' %>">
+  <head>
+    <title><%= content_for(:title) || 'Admin Dashboard - R_Booking' %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-50 min-h-screen">
+    <%= render 'shared/navbar' %>
+
+    <!-- Admin Dashboard Layout -->
+    <div class="flex h-screen pt-16" data-controller="admin-sidebar">
+      <!-- Sidebar -->
+      <%= render 'admin/shared/sidebar' %>
+
+      <!-- Mobile Overlay -->
+      <div data-admin-sidebar-target="overlay"
+           data-action="click->admin-sidebar#close"
+           class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-20 lg:hidden"></div>
+
+      <!-- Main Content Area -->
+      <main data-admin-sidebar-target="content" class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 transition-all duration-300 lg:ml-64">
+        <!-- Flash Messages -->
+        <% if flash.any? %>
+          <div class="bg-white border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+              <% flash.each do |type, message| %>
+                <div class="rounded-lg p-4 <%= type == 'notice' ? 'bg-gray-100 text-gray-800' : 'bg-gray-800 text-white' %>">
+                  <%= message %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Page Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <%= yield %>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

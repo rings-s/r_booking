@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Custom navbar styles */
+@import "../stylesheets/navbar.css";
+
+/* Admin sidebar and dashboard styles */
+@import "../stylesheets/admin_sidebar.css";

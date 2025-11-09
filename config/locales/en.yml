@@ -1,0 +1,378 @@
+# Files in the config/locales directory are used for internationalization and
+# are automatically loaded by Rails. If you want to use locales other than
+# English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more about the API, please read the Rails Internationalization guide
+# at https://guides.rubyonrails.org/i18n.html.
+#
+# Be aware that YAML interprets the following case-insensitive strings as
+# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
+# must be quoted to be interpreted as strings. For example:
+#
+#     en:
+#       "yes": yup
+#       enabled: "ON"
+
+en:
+  app_name: "R_Booking"
+
+  # Navigation
+  nav:
+    home: "Home"
+    businesses: "Businesses"
+    categories: "Categories"
+    bookings: "My Bookings"
+    dashboard: "Dashboard"
+    profile: "Profile"
+    subscriptions: "Subscriptions"
+    sign_in: "Sign In"
+    sign_up: "Sign Up"
+    sign_out: "Sign Out"
+
+  # Common terms
+  common:
+    search: "Search"
+    filter: "Filter"
+    save: "Save"
+    cancel: "Cancel"
+    delete: "Delete"
+    edit: "Edit"
+    view: "View"
+    back: "Back"
+    submit: "Submit"
+    loading: "Loading..."
+    welcome: "Welcome"
+    or: "Or"
+    and: "and"
+    language_changed: "Language changed successfully"
+    invalid_language: "Invalid language selection"
+
+  # Home page
+  home:
+    hero_title: "Book Services with Ease"
+    hero_subtitle: "Discover trusted local services"
+    browse_button: "Browse Services"
+    list_business: "List Your Business"
+
+    features:
+      title: "Features"
+      subtitle: "A better way to book services"
+      description: "Everything you need to manage your bookings and appointments in one place."
+
+      easy_booking:
+        title: "Easy Booking"
+        description: "Book appointments with just a few clicks. No phone calls, no hassle."
+
+      real_time:
+        title: "Real-time Availability"
+        description: "See available time slots in real-time and pick what works for you."
+
+      notifications:
+        title: "Instant Notifications"
+        description: "Get reminders and updates about your bookings via email."
+
+      trusted:
+        title: "Trusted Providers"
+        description: "All service providers are verified and reviewed by our community."
+
+      secure:
+        title: "Secure & Safe"
+        description: "Your data is encrypted and secure. We take your privacy seriously."
+
+      payments:
+        title: "Flexible Payments"
+        description: "Pay online or in person. Multiple payment options available."
+
+    cta:
+      title: "Ready to get started?"
+      subtitle: "Create your account today."
+      get_started: "Get Started"
+      learn_more: "Learn More"
+
+  # Bookings
+  bookings:
+    common:
+      cancel_confirm: "Are you sure you want to cancel this booking?"
+    index:
+      title: "My Bookings"
+      subtitle: "Manage all your appointments in one place"
+      stats:
+        total: "Total"
+        upcoming: "Upcoming"
+        past: "Past"
+      sections:
+        upcoming:
+          title: "Upcoming Appointments"
+          count:
+            one: "%{count} upcoming booking"
+            other: "%{count} upcoming bookings"
+        past:
+          title: "Past Appointments"
+          count:
+            one: "%{count} completed booking"
+            other: "%{count} completed bookings"
+      empty:
+        title: "No Bookings Yet"
+        description: "Start exploring our services and book your first appointment today"
+        browse_services: "Browse Services"
+    show:
+      title: "Booking Confirmation"
+      back_to_bookings: "Back to Bookings"
+      confirmed_message: "Your appointment has been confirmed"
+      service_details:
+        title: "Service Details"
+        service: "Service"
+        business: "Business"
+        category: "Category"
+      appointment:
+        title: "Appointment Time"
+        datetime: "Date & Time"
+        duration: "Duration"
+        price: "Price"
+      notes:
+        title: "Additional Notes"
+      qr:
+        title: "Your Booking QR Code"
+        alt: "Booking QR Code"
+        show_code: "Show this QR code"
+        at_appointment: "at your appointment"
+        screenshot: "Screenshot or download this QR code for easy access"
+        not_available: "QR Code not available"
+      booking_id: "Booking ID"
+      back_to_all: "Back to All Bookings"
+      edit_booking: "Edit Booking"
+      cancel_confirm: "Are you sure you want to cancel this booking? This action cannot be undone."
+      cancel_booking: "Cancel Booking"
+      help:
+        title: "Important Information"
+        arrive_early: "Please arrive 5-10 minutes before your scheduled appointment"
+        bring_qr: "Bring your QR code (screenshot or printed) to show at check-in"
+        cancel_policy: "If you need to cancel or reschedule, please do so at least 24 hours in advance"
+        contact_business: "Contact %{business} directly for any questions"
+    new:
+      title: "Book %{service}"
+      back: "Back"
+      step_indicator: "Step %{current} of %{total}"
+      header_title: "Book Your Appointment"
+      subtitle: "Select your preferred date and time for %{service}"
+    edit:
+      title: "Editing booking"
+      header_title: "Editing booking"
+      show_booking: "Show this booking"
+      back_to_bookings: "Back to bookings"
+    form:
+      errors_title:
+        one: "1 error prevented this booking"
+        other: "%{count} errors prevented this booking"
+      select_date:
+        title: "Select Date"
+        subtitle: "Choose your preferred appointment date"
+        hint: "Time slots update automatically when you select a date"
+      choose_time:
+        title: "Choose Time"
+        available:
+          one: "1 available slot on %{date}"
+          other: "%{count} available slots on %{date}"
+        none: "No available slots for the selected date"
+        empty_title: "No Available Slots"
+        empty_description: "Please select a different date to see available times"
+      notes:
+        title: "Additional Information"
+        subtitle: "Optional - Any special requests?"
+        placeholder: "e.g., Prefer a window seat, need extra time, have specific requirements..."
+        hint: "Let us know if you have any special requirements or preferences"
+      sticky:
+        secure_note: "Secure booking • No payment required"
+        confirm: "Confirm Booking"
+        processing: "Processing..."
+    _booking:
+      user: "User"
+      service: "Service"
+      start_time: "Start time"
+      end_time: "End time"
+      status: "Status"
+      qr_code: "QR code"
+      notes: "Notes"
+    _booking_card:
+      service_fee: "Service fee"
+    title: "My Bookings"
+    subtitle: "Manage all your appointments"
+    upcoming: "Upcoming"
+    past: "Past"
+    no_bookings: "No Bookings Yet"
+    browse_services: "Browse Services"
+    view: "View"
+    edit: "Edit"
+    cancel: "Cancel"
+    confirm_cancel: "Are you sure you want to cancel this booking?"
+
+  # Businesses
+  businesses:
+    title: "Discover Businesses"
+    subtitle: "Find and book services from trusted local providers"
+    search_placeholder: "Search businesses..."
+    filters: "Filters"
+    new_business: "New Business"
+    no_businesses: "No businesses found"
+    no_businesses_subtitle: "Get started by creating your first business"
+    create_business: "Create Business"
+    filter_category: "Filter by Category"
+    all_categories: "All Categories"
+    view_services: "View Services"
+    open_now: "Open Now"
+    closed: "Closed"
+
+  # Categories
+  categories:
+    common:
+      name: "Name"
+      description: "Description"
+      no_description: "No description available"
+      delete_confirm: "Are you sure you want to delete this category?"
+    index:
+      title: "Service Categories"
+      subtitle: "Browse and manage service categories"
+      new: "New Category"
+      search_placeholder: "Search categories..."
+      view_details: "View Details"
+      no_results:
+        title: "No categories found"
+        description: "Get started by creating your first category"
+        create: "Create Category"
+    show:
+      description_title: "Description"
+      no_description: "No description available for this category."
+      back: "Back to Categories"
+      edit: "Edit Category"
+      delete: "Delete Category"
+    new:
+      title: "New Category"
+      header_title: "Create New Category"
+      subtitle: "Add a new service category to organize your services"
+    edit:
+      title: "Edit Category"
+      header_title: "Edit Category"
+      view_category: "View Category"
+      subtitle: "Update the category details below"
+    form:
+      section_title: "Category Information"
+      name_label: "Category Name"
+      name_placeholder: "e.g., Health & Wellness"
+      description_label: "Description"
+      description_placeholder: "Provide a brief description of this category..."
+      description_help: "Optional: Add a description to help users understand this category"
+      create: "Create Category"
+      update: "Update Category"
+    title: "Categories"
+    name: "Name"
+    description: "Description"
+    new: "New Category"
+    edit: "Edit Category"
+    delete: "Delete Category"
+    confirm_delete: "Are you sure?"
+
+  # Dashboard
+  dashboard:
+    title: "Dashboard"
+    welcome: "Welcome back"
+    overview: "Here's an overview of your bookings and activity"
+    analytics: "Analytics and insights for your businesses"
+    system_analytics: "System-wide analytics and insights"
+
+    # Dashboard Types
+    client_title: "Client Dashboard"
+    owner_title: "Owner Dashboard"
+    admin_title: "Admin Dashboard"
+    business_dashboard: "Business Dashboard"
+    administrator: "Administrator"
+
+    # Stats
+    total_bookings: "Total Bookings"
+    total_revenue: "Total Revenue"
+    monthly_revenue: "This Month"
+    upcoming: "Upcoming"
+    pending: "Pending"
+    confirmed: "Confirmed"
+    completed: "Completed"
+    cancelled: "Cancelled"
+    today: "Today"
+    total_users: "Total Users"
+    businesses: "Businesses"
+    clients: "Clients"
+    owners: "Owners"
+    services: "Services"
+
+    # Charts
+    booking_trends: "Booking Trends (Last 6 Months)"
+    bookings_by_status: "Bookings by Status"
+    revenue_trend_12: "Revenue Trend (Last 12 Months)"
+    daily_bookings_30: "Daily Bookings (Last 30 Days)"
+    top_services: "Top Services by Bookings"
+    revenue_by_service: "Revenue by Service (Top 5)"
+    user_growth_12: "User Growth (Last 12 Months)"
+    business_growth_12: "Business Growth (Last 12 Months)"
+    booking_trend_12: "Booking Trend (Last 12 Months)"
+    users_by_role: "Users by Role"
+    top_businesses: "Top Businesses by Bookings"
+    businesses_by_category: "Businesses by Category"
+
+    # Sections
+    upcoming_bookings: "Upcoming Bookings"
+    upcoming_bookings_7: "Upcoming Bookings (Next 7 Days)"
+    todays_bookings: "Today's Bookings"
+    recent_bookings: "Recent Bookings"
+    recent_users: "Recent Users"
+    recent_businesses: "Recent Businesses"
+
+    # Messages
+    no_upcoming: "No upcoming bookings"
+    no_appointments: "You don't have any upcoming appointments"
+    no_recent: "No recent bookings"
+    no_bookings_7: "No bookings scheduled for the next 7 days"
+
+    # Actions
+    view_details: "View Details"
+    browse_services: "Browse Services"
+
+  # Profile
+  profile:
+    title: "My Profile"
+    subtitle: "Manage your account"
+    name: "Name"
+    email: "Email"
+    update: "Update Profile"
+
+  # Subscriptions
+  subscriptions:
+    monthly: "Monthly Subscription"
+    price_month: "SAR / month"
+    subscribe: "Subscribe Now"
+    trial: "Free Trial"
+    active: "Active"
+    expired: "Expired"
+    trial_started: "Your 2-week free trial has started! You can now create your business."
+    subscription_required: "You need an active subscription to create businesses. Subscribe now to get started!"
+    subscribe_now_button: "Subscribe Now"
+    no_subscription: "No active subscription"
+    subscription_needed_title: "Subscription Required"
+    subscription_needed_message: "To create and manage businesses, you need an active subscription. Start your free trial or subscribe now to get started."
+    start_free_trial: "Start Free Trial"
+    already_subscribed: "You already have an active subscription."
+    trial_not_available: "Free trial is not available. You can subscribe to continue."
+    trial_option_title: "Start Your Free Trial"
+    trial_option_description: "Get 2 weeks of full access to all features, completely free. No credit card required."
+    or_pay_now: "Or pay now to get started immediately"

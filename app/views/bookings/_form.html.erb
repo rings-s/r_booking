@@ -1,0 +1,202 @@
+<%= form_with(model: booking, url: booking.new_record? ? business_service_bookings_path(@business, @service) : booking_path(booking), class: "max-w-4xl mx-auto") do |form| %>
+  <!-- Error Messages -->
+  <% if booking.errors.any? %>
+    <div class="mb-8 bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl animate-fade-in">
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0">
+          <svg class="w-6 h-6 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-base font-semibold text-red-800 mb-2">
+            <%= t('.errors_title', count: booking.errors.count) %>
+          </h3>
+          <ul class="text-sm text-red-700 space-y-1">
+            <% booking.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Service Summary Card - Floating Design -->
+  <div class="mb-12">
+    <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-2xl shadow-blue-500/20">
+      <div class="flex items-start gap-6">
+        <div class="flex-shrink-0">
+          <div class="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h2 class="text-2xl font-bold mb-2"><%= @service.name %></h2>
+          <p class="text-blue-100 mb-4"><%= @business.name %></p>
+          <div class="flex flex-wrap gap-4">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span class="text-sm font-medium"><%= @service.formatted_duration %></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span class="text-sm font-medium"><%= @service.formatted_price %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Steps -->
+  <div class="space-y-10">
+    <!-- Step 1: Date Selection -->
+    <div class="scroll-mt-24" id="date-selection">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white font-bold text-sm">
+          1
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900"><%= t('.select_date.title') %></h3>
+          <p class="text-sm text-gray-500"><%= t('.select_date.subtitle') %></p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-8 hover:border-blue-300 transition-colors">
+        <input
+          type="date"
+          id="booking_date"
+          name="date"
+          value="<%= @date || Date.today %>"
+          min="<%= Date.today %>"
+          class="block w-full px-6 py-4 text-lg border-2 border-gray-300 rounded-xl shadow-sm focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-gray-900 hover:border-gray-400"
+          onchange="window.location.href = '<%= new_business_service_booking_path(@business, @service) %>?date=' + this.value"
+        >
+        <p class="mt-4 text-sm text-gray-500 flex items-center gap-2">
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <%= t('.select_date.hint') %>
+        </p>
+      </div>
+    </div>
+
+    <!-- Step 2: Time Slot Selection -->
+    <div class="scroll-mt-24" id="time-selection">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center justify-center w-10 h-10 rounded-full <%= @available_slots.present? ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600' %> font-bold text-sm">
+          2
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900"><%= t('.choose_time.title') %></h3>
+          <p class="text-sm text-gray-500">
+            <% if @available_slots.present? %>
+              <%= t('.choose_time.available', count: @available_slots.count, date: @date.strftime('%B %d, %Y')) %>
+            <% else %>
+              <%= t('.choose_time.none') %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-8">
+        <% if @available_slots.present? %>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            <% @available_slots.each do |slot| %>
+              <label class="relative group cursor-pointer">
+                <%= form.radio_button :start_time,
+                    slot[:start_time],
+                    class: "peer sr-only",
+                    required: true %>
+                <div class="flex flex-col items-center justify-center px-4 py-5 border-2 border-gray-200 rounded-xl transition-all duration-200
+                            hover:border-blue-400 hover:bg-blue-50/50 hover:shadow-md hover:scale-105
+                            peer-checked:border-blue-600 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:shadow-lg peer-checked:scale-105
+                            peer-focus:ring-4 peer-focus:ring-blue-500/20">
+                  <span class="text-base font-bold"><%= slot[:start_time].strftime('%I:%M') %></span>
+                  <span class="text-xs font-medium mt-1 opacity-75"><%= slot[:start_time].strftime('%p') %></span>
+                </div>
+              </label>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center py-16">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+              <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2"><%= t('.choose_time.empty_title') %></h3>
+            <p class="text-gray-600 mb-6"><%= t('.choose_time.empty_description') %></p>
+          </div>
+        <% end %>
+
+        <% if booking.errors[:start_time].any? %>
+          <p class="mt-4 text-sm text-red-600 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <%= booking.errors[:start_time].first %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Step 3: Additional Notes -->
+    <div class="scroll-mt-24" id="notes-section">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-300 text-gray-600 font-bold text-sm">
+          3
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900"><%= t('.notes.title') %></h3>
+          <p class="text-sm text-gray-500"><%= t('.notes.subtitle') %></p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-8 hover:border-blue-300 transition-colors">
+        <%= form.text_area :notes,
+            rows: 4,
+            placeholder: t('.notes.placeholder'),
+            class: "block w-full px-6 py-4 text-base border-2 #{booking.errors[:notes].any? ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'} rounded-xl shadow-sm focus:ring-4 transition-all resize-none hover:border-gray-400" %>
+        <p class="mt-4 text-sm text-gray-500 flex items-center gap-2">
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <%= t('.notes.hint') %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Action Bar -->
+  <div class="sticky bottom-0 -mx-4 sm:-mx-6 lg:-mx-8 mt-12 bg-white border-t border-gray-200 shadow-2xl">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
+        <div class="flex items-center gap-4 text-sm text-gray-600">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+          <span><%= t('.sticky.secure_note') %></span>
+        </div>
+
+        <div class="flex gap-3">
+          <%= link_to business_service_path(@business, @service),
+              class: "flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-gray-300 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 hover:border-gray-400 transition-all duration-200" do %>
+            <%= t('common.cancel') %>
+          <% end %>
+
+          <%= form.submit t('.sticky.confirm'),
+              class: "flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-12 py-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-xl font-bold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+              data: { disable_with: t('.sticky.processing') } %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

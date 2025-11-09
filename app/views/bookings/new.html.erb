@@ -1,0 +1,38 @@
+<% content_for :title, t('.title', service: @service.name) %>
+
+<div class="min-h-screen bg-white">
+  <!-- Progress Bar -->
+  <div class="bg-white border-b border-gray-100 sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between mb-3">
+        <%= link_to business_service_path(@business, @service), class: "inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors group" do %>
+          <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          <span class="text-sm font-medium"><%= t('.back') %></span>
+        <% end %>
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider"><%= t('.step_indicator', current: 1, total: 3) %></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="flex-1 h-1 bg-blue-600 rounded-full"></div>
+        <div class="flex-1 h-1 bg-gray-200 rounded-full"></div>
+        <div class="flex-1 h-1 bg-gray-200 rounded-full"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12 max-w-2xl mx-auto">
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+        <%= t('.header_title') %>
+      </h1>
+      <p class="text-lg text-gray-600">
+        <%= t('.subtitle', service: @service.name) %>
+      </p>
+    </div>
+
+    <!-- Form -->
+    <%= render "form", booking: @booking %>
+  </div>
+</div>

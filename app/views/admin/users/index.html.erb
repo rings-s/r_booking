@@ -1,0 +1,70 @@
+<% content_for :title, 'Users Management - Admin Panel' %>
+
+<!-- Users Header -->
+<div class="mb-8">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Users Management</h1>
+      <p class="mt-2 text-gray-600">Manage system users and their permissions</p>
+    </div>
+    <%= link_to new_admin_user_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+      </svg>
+      <span>Add User</span>
+    <% end %>
+  </div>
+</div>
+
+<!-- Filters & Search -->
+<div class="mb-6 bg-white rounded-lg shadow p-4 border border-gray-200">
+  <%= form_with url: admin_users_path, method: :get, class: "flex gap-4 items-end" do |f| %>
+    <div class="flex-1">
+      <%= f.label :search, "Search Users", class: "block text-sm font-medium text-gray-700 mb-2" %>
+      <%= f.text_field :search, value: params[:search], placeholder: "Search by name or email...", class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" %>
+    </div>
+
+    <div class="w-48">
+      <%= f.label :role, "Filter by Role", class: "block text-sm font-medium text-gray-700 mb-2" %>
+      <%= f.select :role, options_for_select([['All Roles', 'all'], ['Client', 'client'], ['Owner', 'owner'], ['Admin', 'admin']], params[:role] || 'all'), {}, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" %>
+    </div>
+
+    <div>
+      <%= f.submit "Filter", class: "px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition cursor-pointer" %>
+    </div>
+
+    <% if params[:search].present? || (params[:role].present? && params[:role] != 'all') %>
+      <%= link_to "Clear", admin_users_path, class: "px-6 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition" %>
+    <% end %>
+  <% end %>
+</div>
+
+<!-- Users Table -->
+<div class="bg-white rounded-lg shadow overflow-hidden border border-gray-200" data-controller="admin-users">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Updated</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <% @users.each do |user| %>
+        <%= render 'user_row', user: user %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @users.empty? %>
+    <div class="text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+      </svg>
+      <p class="mt-4 text-lg font-medium text-gray-900">No users found</p>
+      <p class="mt-2 text-gray-500">Try adjusting your search or filter criteria</p>
+    </div>
+  <% end %>
+</div>

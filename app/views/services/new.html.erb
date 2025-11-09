@@ -1,0 +1,33 @@
+<% content_for :title, "Add New Service" %>
+
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-4">
+        <%= link_to business_services_path(@business), class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition group" do %>
+          <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          <span class="text-sm font-medium">Back to Services</span>
+        <% end %>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="flex-shrink-0">
+          <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">Add New Service</h1>
+          <p class="text-gray-600">Create a new service for <span class="font-medium text-gray-900"><%= @business.name %></span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <%= render 'form', service: @service %>
+  </div>
+</div>

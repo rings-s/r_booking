@@ -1,0 +1,50 @@
+<% content_for :title, "Change Password - R Booking" %>
+
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Change Password</h1>
+      <p class="text-gray-600">Enter your new password below</p>
+    </div>
+
+    <!-- Main Card -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'space-y-6', data: { turbo: false } }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= f.hidden_field :reset_password_token %>
+
+        <!-- New Password Field -->
+        <div>
+          <%= f.label :password, class: 'block text-sm font-medium text-gray-700 mb-2' do %>
+            New password
+            <% if @minimum_password_length %>
+              <span class="text-xs font-normal text-gray-500">(<%= @minimum_password_length %> characters minimum)</span>
+            <% end %>
+          <% end %>
+          <%= f.password_field :password, autofocus: true, autocomplete: "new-password", placeholder: 'Enter new password', class: 'block w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200' %>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div>
+          <%= f.label :password_confirmation, "Confirm new password", class: 'block text-sm font-medium text-gray-700 mb-2' %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Re-enter new password', class: 'block w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200' %>
+        </div>
+
+        <!-- Submit Button -->
+        <%= f.submit "Change Password", class: 'w-full py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer' %>
+      <% end %>
+    </div>
+
+    <!-- Back to Sign In Link -->
+    <div class="mt-6 text-center">
+      <%= link_to "Back to Sign In", new_session_path(resource_name), class: 'font-semibold text-blue-600 hover:text-blue-500 transition' %>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="mt-8 text-center text-xs text-gray-500">
+      <%= link_to "Privacy Policy", "#", class: 'hover:text-gray-700 transition' %> •
+      <%= link_to "Terms of Service", "#", class: 'hover:text-gray-700 transition' %>
+    </div>
+  </div>
+</div>

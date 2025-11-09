@@ -1,0 +1,19 @@
+<% content_for :title, t('.title') %>
+
+<div class="max-w-3xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center gap-3 mb-4">
+      <%= link_to categories_path, class: "text-gray-400 hover:text-gray-600 transition" do %>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+      <% end %>
+      <h1 class="text-4xl font-bold text-gray-900"><%= t('.header_title') %></h1>
+    </div>
+    <p class="text-gray-600"><%= t('.subtitle') %></p>
+  </div>
+
+  <!-- Form -->
+  <%= render "form", category: @category %>
+</div>

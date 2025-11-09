@@ -1,0 +1,28 @@
+<% content_for :title, t('.title') %>
+
+<div class="max-w-3xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-3">
+        <%= link_to categories_path, class: "text-gray-400 hover:text-gray-600 transition" do %>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+        <% end %>
+        <h1 class="text-4xl font-bold text-gray-900"><%= t('.header_title') %></h1>
+      </div>
+      <%= link_to @category, class: "inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition" do %>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+        </svg>
+        <%= t('.view_category') %>
+      <% end %>
+    </div>
+    <p class="text-gray-600"><%= t('.subtitle') %></p>
+  </div>
+
+  <!-- Form -->
+  <%= render "form", category: @category %>
+</div>

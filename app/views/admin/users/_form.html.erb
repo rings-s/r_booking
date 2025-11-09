@@ -1,0 +1,61 @@
+<%= form_with model: [:admin, user], class: "space-y-6" do |f| %>
+  <!-- Error Messages -->
+  <% if user.errors.any? %>
+    <div class="bg-gray-100 border border-gray-300 rounded-lg p-4">
+      <h3 class="text-sm font-medium text-gray-900 mb-2">
+        <%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:
+      </h3>
+      <ul class="list-disc list-inside space-y-1">
+        <% user.errors.full_messages.each do |message| %>
+          <li class="text-sm text-gray-700"><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Name Field -->
+  <div>
+    <%= f.label :name, "Full Name", class: "block text-sm font-medium text-gray-900 mb-2" %>
+    <%= f.text_field :name, required: true, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent", placeholder: "John Doe" %>
+  </div>
+
+  <!-- Email Field -->
+  <div>
+    <%= f.label :email, "Email Address", class: "block text-sm font-medium text-gray-900 mb-2" %>
+    <%= f.email_field :email, required: true, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent", placeholder: "john@example.com" %>
+  </div>
+
+  <!-- Role Field -->
+  <div>
+    <%= f.label :role, "User Role", class: "block text-sm font-medium text-gray-900 mb-2" %>
+    <%= f.select :role, options_for_select([['Client', 'client'], ['Business Owner', 'owner'], ['Administrator', 'admin']], user.role), {}, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" %>
+    <p class="mt-1 text-sm text-gray-500">
+      Select the appropriate role for this user
+    </p>
+  </div>
+
+  <!-- Password Fields -->
+  <div class="pt-6 border-t border-gray-200">
+    <h3 class="text-lg font-medium text-gray-900 mb-4">
+      <%= user.new_record? ? 'Set Password' : 'Change Password (leave blank to keep current)' %>
+    </h3>
+
+    <div class="space-y-4">
+      <div>
+        <%= f.label :password, "Password", class: "block text-sm font-medium text-gray-900 mb-2" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent", placeholder: user.new_record? ? "Minimum 6 characters" : "Leave blank to keep current password" %>
+      </div>
+
+      <div>
+        <%= f.label :password_confirmation, "Confirm Password", class: "block text-sm font-medium text-gray-900 mb-2" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent", placeholder: "Re-enter password" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Actions -->
+  <div class="flex items-center justify-end gap-4 pt-6">
+    <%= link_to "Cancel", admin_users_path, class: "px-6 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition" %>
+    <%= f.submit user.new_record? ? "Create User" : "Update User", class: "px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition cursor-pointer" %>
+  </div>
+<% end %>

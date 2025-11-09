@@ -1,0 +1,82 @@
+<!-- Admin Sidebar -->
+<aside data-admin-sidebar-target="sidebar"
+       class="sidebar-container fixed top-16 left-0 z-30 w-64 h-[calc(100vh-4rem)] bg-gray-900 text-gray-300 overflow-hidden transition-all duration-300 ease-in-out lg:translate-x-0 -translate-x-full">
+
+  <!-- Sidebar Header -->
+  <div class="flex items-center justify-between p-6 border-b border-gray-800">
+    <h2 data-admin-sidebar-target="text" class="text-xl font-bold text-white transition-opacity duration-300">Admin Panel</h2>
+
+    <!-- Toggle Button (Desktop - Collapse/Expand) -->
+    <button data-action="click->admin-sidebar#toggleCollapse"
+            data-admin-sidebar-target="collapseBtn"
+            class="hidden lg:block text-gray-400 hover:text-white transition-all duration-300 hover:rotate-180"
+            title="Toggle Sidebar">
+      <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <!-- Close Button (Mobile) -->
+    <button data-action="click->admin-sidebar#close"
+            class="lg:hidden text-gray-400 hover:text-white transition">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="sidebar-nav p-4 space-y-2 overflow-y-auto flex-1">
+    <!-- Dashboard Home -->
+    <%= link_to admin_root_path,
+        title: "Dashboard",
+        class: "nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group #{current_page?(admin_root_path) ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}" do %>
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+      </svg>
+      <span data-admin-sidebar-target="text" class="font-medium whitespace-nowrap transition-opacity duration-300">Dashboard</span>
+    <% end %>
+
+    <!-- Users Management -->
+    <%= link_to admin_users_path,
+        title: "Users",
+        class: "nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group #{current_page?(admin_users_path) || params[:controller] == 'admin/users' ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}" do %>
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+      </svg>
+      <span data-admin-sidebar-target="text" class="font-medium whitespace-nowrap transition-opacity duration-300">Users</span>
+    <% end %>
+
+    <!-- Settings -->
+    <%= link_to admin_settings_path,
+        title: "Settings",
+        class: "nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group #{current_page?(admin_settings_path) ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}" do %>
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+      <span data-admin-sidebar-target="text" class="font-medium whitespace-nowrap transition-opacity duration-300">Settings</span>
+    <% end %>
+  </nav>
+
+  <!-- Sidebar Footer -->
+  <div class="sidebar-footer absolute bottom-0 left-0 right-0 p-4 border-t border-gray-800 bg-gray-900 transition-all duration-300">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center flex-shrink-0" title="<%= current_user.name %>">
+        <span class="text-white font-bold text-sm"><%= current_user.name.first.upcase rescue 'A' %></span>
+      </div>
+      <div data-admin-sidebar-target="text" class="flex-1 min-w-0 transition-opacity duration-300">
+        <p class="text-sm font-medium text-white truncate"><%= current_user.name %></p>
+        <p class="text-xs text-gray-400">Administrator</p>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Toggle Button (Mobile) -->
+<button data-action="click->admin-sidebar#toggle"
+        class="lg:hidden fixed top-20 left-4 z-40 p-2 rounded-lg bg-gray-900 text-white hover:bg-gray-800 transition">
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+  </svg>
+</button>

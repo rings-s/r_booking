@@ -1,0 +1,2 @@
+module QueueTicketsHelper
+end

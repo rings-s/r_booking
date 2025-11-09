@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+client_one:
+  name: "Client One"
+  email: "client1@example.com"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  role: 0  # client
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+owner_one:
+  name: "Owner One"
+  email: "owner1@example.com"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  role: 1  # owner
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

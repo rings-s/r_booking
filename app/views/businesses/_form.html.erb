@@ -1,0 +1,246 @@
+<%= form_with(model: business, class: "space-y-8") do |form| %>
+  <!-- Error Messages -->
+  <% if business.errors.any? %>
+    <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-red-800">
+            <%= pluralize(business.errors.count, "error") %> prohibited this business from being saved
+          </h3>
+          <ul class="mt-2 text-sm text-red-700 list-disc list-inside space-y-1">
+            <% business.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Hidden User ID Field -->
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <!-- Business Information Section -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-6">Business Information</h3>
+
+    <div class="space-y-6">
+      <!-- Business Name -->
+      <div>
+        <%= form.label :name, class: "block text-sm font-medium text-gray-700 mb-2" do %>
+          Business Name <span class="text-red-500">*</span>
+        <% end %>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+          </div>
+          <%= form.text_field :name, placeholder: "e.g., Joe's Barbershop", class: "block w-full pl-10 pr-3 py-3 border #{business.errors[:name].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
+        </div>
+        <% if business.errors[:name].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= business.errors[:name].first %></p>
+        <% end %>
+      </div>
+
+      <!-- Category -->
+      <div>
+        <%= form.label :category_id, class: "block text-sm font-medium text-gray-700 mb-2" do %>
+          Business Category <span class="text-red-500">*</span>
+        <% end %>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+            </svg>
+          </div>
+          <%= form.collection_select :category_id, @categories, :id, :name,
+              { prompt: 'Select a category' },
+              class: "block w-full pl-10 pr-3 py-3 border #{business.errors[:category].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
+        </div>
+        <p class="mt-1 text-sm text-gray-500">Select the category that best describes your business</p>
+        <% if business.errors[:category].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= business.errors[:category].first %></p>
+        <% end %>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <%= form.label :description, class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <%= form.text_area :description, rows: 4, placeholder: "Tell customers about your business...", class: "block w-full px-3 py-3 border #{business.errors[:description].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition resize-none" %>
+        <p class="mt-1 text-sm text-gray-500">Brief description of your business and services</p>
+        <% if business.errors[:description].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= business.errors[:description].first %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Information Section -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-6">Contact Information</h3>
+
+    <div class="space-y-6">
+      <!-- Location -->
+      <div>
+        <%= form.label :location, class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <div class="relative">
+          <div class="absolute inset-y-0 <%= I18n.locale == :ar ? 'right-0 pr-3' : 'left-0 pl-3' %> flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <%= form.text_field :location, placeholder: "123 Main St, City, State 12345", class: "block w-full <%= I18n.locale == :ar ? 'pr-10 pl-3' : 'pl-10 pr-3' %> py-3 border #{business.errors[:location].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
+        </div>
+        <% if business.errors[:location].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= business.errors[:location].first %></p>
+        <% end %>
+      </div>
+
+      <!-- Phone Number -->
+      <div>
+        <%= form.label :phone_number, class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <div class="relative">
+          <div class="absolute inset-y-0 <%= I18n.locale == :ar ? 'right-0 pr-3' : 'left-0 pl-3' %> flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+          </div>
+          <%= form.text_field :phone_number, placeholder: "+1 (555) 123-4567", class: "block w-full <%= I18n.locale == :ar ? 'pr-10 pl-3' : 'pl-10 pr-3' %> py-3 border #{business.errors[:phone_number].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
+        </div>
+        <p class="mt-1 text-sm text-gray-500">Contact phone number for customers</p>
+        <% if business.errors[:phone_number].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= business.errors[:phone_number].first %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Operating Hours Section -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-6">Operating Hours</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Open Time -->
+      <div>
+        <%= form.label :open_time, "Opening Time", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <%= form.time_field :open_time, class: "block w-full pl-10 pr-3 py-3 border #{business.errors[:open_time].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
+        </div>
+        <% if business.errors[:open_time].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= business.errors[:open_time].first %></p>
+        <% end %>
+      </div>
+
+      <!-- Close Time -->
+      <div>
+        <%= form.label :close_time, "Closing Time", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <%= form.time_field :close_time, class: "block w-full pl-10 pr-3 py-3 border #{business.errors[:close_time].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
+        </div>
+        <% if business.errors[:close_time].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= business.errors[:close_time].first %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Media Section -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-6">Media & Images</h3>
+
+    <div class="space-y-6">
+      <!-- Logo Upload -->
+      <div>
+        <%= form.label :logo, "Business Logo", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <div class="flex items-start gap-4">
+          <!-- Current Logo Preview -->
+          <% if business.logo.attached? && business.logo.blob.persisted? %>
+            <div class="flex-shrink-0">
+              <%= image_tag business.logo.variant(resize_to_limit: [100, 100]), class: "w-24 h-24 object-cover rounded-lg border border-gray-200" %>
+            </div>
+          <% end %>
+
+          <!-- File Input -->
+          <div class="flex-1">
+            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 transition">
+              <div class="space-y-1 text-center">
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="flex text-sm text-gray-600">
+                  <label for="business_logo" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                    <span>Upload a logo</span>
+                    <%= form.file_field :logo, class: "sr-only", id: "business_logo", accept: "image/*" %>
+                  </label>
+                  <p class="pl-1">or drag and drop</p>
+                </div>
+                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="mt-2 text-sm text-gray-500">Upload a logo to represent your business</p>
+      </div>
+
+      <!-- Gallery Images Upload -->
+      <div>
+        <%= form.label :images, "Gallery Images", class: "block text-sm font-medium text-gray-700 mb-2" %>
+
+        <!-- Current Images Preview -->
+        <% if business.images.attached? %>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            <% business.images.select { |img| img.blob.persisted? }.each do |image| %>
+              <div class="relative group">
+                <%= image_tag image.variant(resize_to_limit: [200, 200]), class: "w-full h-32 object-cover rounded-lg border border-gray-200" %>
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 rounded-lg flex items-center justify-center">
+                  <span class="text-white opacity-0 group-hover:opacity-100 text-sm font-medium">Uploaded</span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <!-- File Input -->
+        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 transition">
+          <div class="space-y-1 text-center">
+            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="flex text-sm text-gray-600">
+              <label for="business_images" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                <span>Upload images</span>
+                <%= form.file_field :images, multiple: true, class: "sr-only", id: "business_images", accept: "image/*" %>
+              </label>
+              <p class="pl-1">or drag and drop</p>
+            </div>
+            <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB each (multiple files)</p>
+          </div>
+        </div>
+        <p class="mt-2 text-sm text-gray-500">Upload multiple images to showcase your business</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Actions -->
+  <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-200">
+    <%= link_to "Cancel", businesses_path, class: "px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition" %>
+    <%= form.submit class: "inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer" %>
+  </div>
+<% end %>

@@ -1,0 +1,70 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900"><%= @business.name %> - Services</h1>
+      <p class="text-gray-600 mt-1">Manage your services and pricing</p>
+    </div>
+
+    <% if user_signed_in? && current_user == @business.user %>
+      <%= link_to 'Add New Service', new_business_service_path(@business), class: 'bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition' %>
+    <% end %>
+  </div>
+
+  <% if @services.any? %>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <% @services.each do |service| %>
+        <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition p-6">
+          <div class="flex justify-between items-start mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold text-gray-900"><%= service.name %></h3>
+              <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
+                <%= service.category.name %>
+              </span>
+            </div>
+          </div>
+
+          <% if service.description.present? %>
+            <p class="text-gray-600 mb-4 line-clamp-3"><%= service.description %></p>
+          <% end %>
+
+          <div class="flex justify-between items-center mb-4">
+            <div class="text-gray-700">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span><%= service.formatted_duration %></span>
+              </div>
+            </div>
+            <div class="text-2xl font-bold text-blue-600">
+              <%= service.formatted_price %>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <%= link_to 'View Details', business_service_path(@business, service), class: 'flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-md transition' %>
+
+            <% if user_signed_in? && current_user == @business.user %>
+              <%= link_to 'Edit', edit_business_service_path(@business, service), class: 'bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bg-gray-50 rounded-lg p-12 text-center">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+      </svg>
+      <h3 class="mt-4 text-lg font-medium text-gray-900">No services yet</h3>
+      <p class="mt-2 text-gray-500">Get started by creating your first service.</p>
+      <% if user_signed_in? && current_user == @business.user %>
+        <%= link_to 'Add First Service', new_business_service_path(@business), class: 'mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition' %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="mt-8">
+    <%= link_to '← Back to Businesses', businesses_path, class: 'text-blue-600 hover:text-blue-700 font-medium' %>
+  </div>
+</div>
