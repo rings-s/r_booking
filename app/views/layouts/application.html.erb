@@ -24,11 +24,36 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin="anonymous">
+
+    <%# Load Leaflet BEFORE Stimulus controllers %>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+    <script>
+      console.log('=== DEBUG: Leaflet loaded?', typeof L !== 'undefined' ? 'YES' : 'NO');
+      if (typeof L !== 'undefined') {
+        console.log('=== DEBUG: Leaflet version:', L.version);
+      }
+    </script>
+
     <%= javascript_importmap_tags %>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('=== DEBUG: DOM ready');
+        console.log('=== DEBUG: Map element exists?', document.getElementById('map') ? 'YES' : 'NO');
+      });
+    </script>
   </head>
 
   <body class="bg-gray-50 min-h-screen">
+    <script>console.log('=== BODY LOADED ===');</script>
     <%= render 'shared/navbar' %>
 
     <!-- Flash Messages -->

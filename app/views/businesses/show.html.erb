@@ -104,6 +104,56 @@
           <% else %>
             <p class="text-gray-400 italic">No description available</p>
           <% end %>
+
+          <!-- Map Section -->
+          <% if @business.latitude.present? && @business.longitude.present? %>
+            <div class="mt-8">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                  <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  Location
+                </h2>
+                <a href="https://www.google.com/maps?q=<%= @business.latitude %>,<%= @business.longitude %>"
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-all duration-200 transform hover:-translate-y-0.5 shadow-sm">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                  </svg>
+                  Share Location
+                </a>
+              </div>
+
+              <div id="business-map" class="h-80 w-full rounded-lg border border-gray-300 shadow-sm"></div>
+
+              <script>
+                (function() {
+                  if (typeof L === 'undefined' || !document.getElementById('business-map')) return;
+
+                  document.addEventListener('DOMContentLoaded', function() {
+                    setTimeout(function() {
+                      var lat = <%= @business.latitude %>;
+                      var lng = <%= @business.longitude %>;
+                      var businessName = "<%= j @business.name %>";
+
+                      var businessMap = L.map('business-map').setView([lat, lng], 15);
+                      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '© OpenStreetMap'
+                      }).addTo(businessMap);
+
+                      var marker = L.marker([lat, lng]).addTo(businessMap);
+                      marker.bindPopup('<strong>' + businessName + '</strong><br>' +
+                                      'Lat: ' + lat.toFixed(6) + '<br>' +
+                                      'Lng: ' + lng.toFixed(6)).openPopup();
+                    }, 100);
+                  });
+                })();
+              </script>
+            </div>
+          <% end %>
         </div>
 
         <!-- Business Owner Card -->

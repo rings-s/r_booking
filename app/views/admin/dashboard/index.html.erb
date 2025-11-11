@@ -104,10 +104,10 @@
       <!-- Tabs Content -->
       <div class="p-6">
         <!-- Users Panel -->
-        <div data-chart-tabs-target="panel" data-panel="users" class="h-64">
+        <div data-chart-tabs-target="panel" data-panel="users" class="h-48">
           <%= line_chart @line_users,
               colors: ['#374151'],
-              height: '256px',
+              height: '192px',
               library: {
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
@@ -119,10 +119,10 @@
         </div>
 
         <!-- Businesses Panel -->
-        <div data-chart-tabs-target="panel" data-panel="businesses" class="h-64 hidden">
+        <div data-chart-tabs-target="panel" data-panel="businesses" class="h-48 hidden">
           <%= line_chart @line_businesses,
               colors: ['#4b5563'],
-              height: '256px',
+              height: '192px',
               library: {
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
@@ -134,10 +134,10 @@
         </div>
 
         <!-- Bookings Panel -->
-        <div data-chart-tabs-target="panel" data-panel="bookings" class="h-64 hidden">
+        <div data-chart-tabs-target="panel" data-panel="bookings" class="h-48 hidden">
           <%= line_chart @line_bookings,
               colors: ['#1f2937'],
-              height: '256px',
+              height: '192px',
               library: {
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
@@ -180,11 +180,11 @@
       <!-- Tabs Content -->
       <div class="p-6">
         <!-- Users Panel -->
-        <div data-chart-tabs-target="panel" data-panel="users" class="h-64 flex items-center justify-center">
+        <div data-chart-tabs-target="panel" data-panel="users" class="h-48 flex items-center justify-center">
           <%= pie_chart @doughnut_users,
               donut: true,
               colors: ['#1f2937', '#9ca3af'],
-              height: '256px',
+              height: '192px',
               library: {
                 maintainAspectRatio: false,
                 plugins: {
@@ -197,11 +197,11 @@
         </div>
 
         <!-- Businesses Panel -->
-        <div data-chart-tabs-target="panel" data-panel="businesses" class="h-64 flex items-center justify-center hidden">
+        <div data-chart-tabs-target="panel" data-panel="businesses" class="h-48 flex items-center justify-center hidden">
           <%= pie_chart @doughnut_businesses,
               donut: true,
               colors: ['#4b5563', '#d1d5db'],
-              height: '256px',
+              height: '192px',
               library: {
                 maintainAspectRatio: false,
                 plugins: {
@@ -214,11 +214,11 @@
         </div>
 
         <!-- Bookings Panel -->
-        <div data-chart-tabs-target="panel" data-panel="bookings" class="h-64 flex items-center justify-center hidden">
+        <div data-chart-tabs-target="panel" data-panel="bookings" class="h-48 flex items-center justify-center hidden">
           <%= pie_chart @doughnut_bookings,
               donut: true,
               colors: ['#374151', '#9ca3af'],
-              height: '256px',
+              height: '192px',
               library: {
                 maintainAspectRatio: false,
                 plugins: {
@@ -263,10 +263,10 @@
     <!-- Tabs Content -->
     <div class="p-6">
       <!-- Users Panel -->
-      <div data-chart-tabs-target="panel" data-panel="users" class="h-80">
+      <div data-chart-tabs-target="panel" data-panel="users" class="h-64">
         <%= column_chart @bar_users,
             colors: ['#1f2937', '#4b5563', '#6b7280'],
-            height: '320px',
+            height: '256px',
             library: {
               maintainAspectRatio: false,
               plugins: { legend: { display: false } },
@@ -278,10 +278,10 @@
       </div>
 
       <!-- Businesses Panel -->
-      <div data-chart-tabs-target="panel" data-panel="businesses" class="h-80 hidden">
+      <div data-chart-tabs-target="panel" data-panel="businesses" class="h-64 hidden">
         <%= column_chart @bar_businesses,
             colors: ['#374151', '#4b5563', '#6b7280', '#9ca3af'],
-            height: '320px',
+            height: '256px',
             library: {
               maintainAspectRatio: false,
               plugins: { legend: { display: false } },
@@ -293,10 +293,10 @@
       </div>
 
       <!-- Bookings Panel -->
-      <div data-chart-tabs-target="panel" data-panel="bookings" class="h-80 hidden">
+      <div data-chart-tabs-target="panel" data-panel="bookings" class="h-64 hidden">
         <%= column_chart @bar_bookings,
             colors: ['#1f2937', '#4b5563', '#6b7280'],
-            height: '320px',
+            height: '256px',
             library: {
               maintainAspectRatio: false,
               plugins: { legend: { display: false } },

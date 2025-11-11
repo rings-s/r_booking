@@ -61,6 +61,8 @@ https://yourdomain.com/users/auth/google_oauth2/callback
    http://127.0.0.1:3000/users/auth/google_oauth2/callback
    ```
 
+   **⚠️ IMPORTANT:** Use `http://` (NOT `https://`) for localhost development!
+
    For production, also add:
    ```
    https://yourdomain.com/users/auth/google_oauth2/callback

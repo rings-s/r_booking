@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OAuth Debug Test</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+    .button { padding: 15px 30px; font-size: 16px; cursor: pointer; background: #4285f4; color: white; border: none; border-radius: 5px; }
+    .info { background: #f0f0f0; padding: 15px; margin: 20px 0; border-radius: 5px; }
+    pre { background: #2d2d2d; color: #f8f8f8; padding: 15px; border-radius: 5px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>🔍 OAuth Debug Test</h1>
+
+  <div class="info">
+    <h3>Test OAuth Redirect</h3>
+    <p>Click the button below to test if your browser can redirect to the OAuth endpoint:</p>
+  </div>
+
+  <form action="http://localhost:3000/users/auth/google_oauth2" method="post" id="oauth-form">
+    <input type="hidden" name="authenticity_token" value="test-token">
+    <button type="submit" class="button">🔐 Test Google OAuth Redirect</button>
+  </form>
+
+  <div class="info" style="margin-top: 30px;">
+    <h3>OR Test Direct Link</h3>
+    <p>Try clicking this direct link:</p>
+    <a href="http://localhost:3000/users/auth/google_oauth2" class="button" style="display: inline-block; text-decoration: none;">
+      Direct OAuth Link (GET)
+    </a>
+  </div>
+
+  <div class="info" style="margin-top: 30px;">
+    <h3>📋 What Should Happen:</h3>
+    <ol>
+      <li>You should be redirected to Google's sign-in page</li>
+      <li>After signing in, you'll be redirected back to localhost:3000</li>
+      <li>You should be signed in to the app</li>
+    </ol>
+
+    <h3>❌ If Nothing Happens:</h3>
+    <ul>
+      <li>Check browser console for errors (F12)</li>
+      <li>Check if popup blocker is enabled</li>
+      <li>Try in incognito/private mode</li>
+      <li>Try a different browser</li>
+    </ul>
+  </div>
+
+  <div class="info" style="margin-top: 30px;">
+    <h3>🛠️ Expected OAuth URL:</h3>
+    <pre>http://localhost:3000/users/auth/google_oauth2</pre>
+
+    <h3>Expected Callback URL:</h3>
+    <pre>http://localhost:3000/users/auth/google_oauth2/callback</pre>
+
+    <p><strong>Make sure this EXACT URL is in your Google Cloud Console:</strong></p>
+    <pre>http://localhost:3000/users/auth/google_oauth2/callback</pre>
+  </div>
+
+  <script>
+    document.getElementById('oauth-form').addEventListener('submit', function(e) {
+      console.log('Form submitted, attempting redirect...');
+      console.log('Target URL:', this.action);
+    });
+  </script>
+</body>
+</html>

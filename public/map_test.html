@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Map Test</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous">
+  <style>
+    #map { height: 400px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>Leaflet Map Test</h1>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    console.log('Test page loaded');
+    console.log('Leaflet available?', typeof L !== 'undefined');
+
+    if (typeof L !== 'undefined') {
+      console.log('Initializing map...');
+      var map = L.map('map').setView([24.7136, 46.6753], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+      }).addTo(map);
+      console.log('Map initialized!');
+    } else {
+      console.error('Leaflet not loaded!');
+    }
+  </script>
+</body>
+</html>

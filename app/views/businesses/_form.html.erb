@@ -23,7 +23,7 @@
   <% end %>
 
   <!-- Hidden User ID Field -->
-  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :user_id, value: business.new_record? ? current_user.id : business.user_id %>
 
   <!-- Business Information Section -->
   <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
@@ -86,23 +86,6 @@
     <h3 class="text-lg font-semibold text-gray-900 mb-6">Contact Information</h3>
 
     <div class="space-y-6">
-      <!-- Location -->
-      <div>
-        <%= form.label :location, class: "block text-sm font-medium text-gray-700 mb-2" %>
-        <div class="relative">
-          <div class="absolute inset-y-0 <%= I18n.locale == :ar ? 'right-0 pr-3' : 'left-0 pl-3' %> flex items-center pointer-events-none">
-            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-          </div>
-          <%= form.text_field :location, placeholder: "123 Main St, City, State 12345", class: "block w-full <%= I18n.locale == :ar ? 'pr-10 pl-3' : 'pl-10 pr-3' %> py-3 border #{business.errors[:location].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
-        </div>
-        <% if business.errors[:location].any? %>
-          <p class="mt-1 text-sm text-red-600"><%= business.errors[:location].first %></p>
-        <% end %>
-      </div>
-
       <!-- Phone Number -->
       <div>
         <%= form.label :phone_number, class: "block text-sm font-medium text-gray-700 mb-2" %>
@@ -112,11 +95,147 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
             </svg>
           </div>
-          <%= form.text_field :phone_number, placeholder: "+1 (555) 123-4567", class: "block w-full <%= I18n.locale == :ar ? 'pr-10 pl-3' : 'pl-10 pr-3' %> py-3 border #{business.errors[:phone_number].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
+          <%= form.text_field :phone_number, placeholder: "+1 (555) 123-4567", class: "block w-full #{I18n.locale == :ar ? 'pr-10 pl-3' : 'pl-10 pr-3'} py-3 border #{business.errors[:phone_number].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
         </div>
         <p class="mt-1 text-sm text-gray-500">Contact phone number for customers</p>
         <% if business.errors[:phone_number].any? %>
           <p class="mt-1 text-sm text-red-600"><%= business.errors[:phone_number].first %></p>
+        <% end %>
+      </div>
+
+      <!-- Location Map -->
+      <script>
+        console.log('=== FORM SCRIPT: About to initialize location-map controller');
+        console.log('=== FORM SCRIPT: Leaflet available?', typeof L !== 'undefined');
+        console.log('=== FORM SCRIPT: Stimulus available?', typeof window.Stimulus !== 'undefined');
+      </script>
+      <div data-controller="location-map"
+           data-location-map-latitude-value="<%= business.latitude %>"
+           data-location-map-longitude-value="<%= business.longitude %>">
+
+        <div class="flex items-center justify-between mb-2">
+          <%= form.label :location, "Business Location", class: "block text-sm font-medium text-gray-700" %>
+          <button type="button"
+                  data-action="click->location-map#redetect"
+                  class="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            Detect My Location
+          </button>
+        </div>
+
+        <!-- Map Container -->
+        <div id="map" data-location-map-target="map" class="w-full h-80 rounded-lg border border-gray-300 mb-3" style="z-index: 1;"></div>
+
+        <script>
+          (function() {
+            if (typeof L === 'undefined' || !document.getElementById('map')) return;
+
+            document.addEventListener('DOMContentLoaded', function() {
+              setTimeout(function() {
+                var directMap = L.map('map').setView([24.7136, 46.6753], 13);
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  maxZoom: 19,
+                  attribution: '© OpenStreetMap'
+                }).addTo(directMap);
+
+                var marker = null;
+                var latInput = document.querySelector('input[name="business[latitude]"]');
+                var lngInput = document.querySelector('input[name="business[longitude]"]');
+                var addressInput = document.querySelector('input[name="business[location]"]');
+
+                function updateLocation(lat, lng) {
+                  if (latInput) latInput.value = lat.toFixed(6);
+                  if (lngInput) lngInput.value = lng.toFixed(6);
+
+                  fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
+                    .then(response => response.json())
+                    .then(data => {
+                      if (addressInput && data.display_name) {
+                        addressInput.value = data.display_name;
+                      }
+                    })
+                    .catch(err => console.warn('Geocoding error:', err));
+                }
+
+                function setMarker(lat, lng) {
+                  if (marker) directMap.removeLayer(marker);
+                  marker = L.marker([lat, lng], { draggable: true }).addTo(directMap);
+                  marker.bindPopup(`Lat: ${lat.toFixed(6)}<br>Lng: ${lng.toFixed(6)}`).openPopup();
+                  marker.on('dragend', function(e) {
+                    var pos = e.target.getLatLng();
+                    updateLocation(pos.lat, pos.lng);
+                    marker.setPopupContent(`Lat: ${pos.lat.toFixed(6)}<br>Lng: ${pos.lng.toFixed(6)}`);
+                  });
+                  updateLocation(lat, lng);
+                }
+
+                directMap.on('click', function(e) {
+                  setMarker(e.latlng.lat, e.latlng.lng);
+                });
+
+                if (navigator.geolocation && (!latInput || !latInput.value)) {
+                  navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                      directMap.setView([position.coords.latitude, position.coords.longitude], 15);
+                      setMarker(position.coords.latitude, position.coords.longitude);
+                    },
+                    function(error) { console.warn('Geolocation error:', error.message); },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                  );
+                } else if (latInput && latInput.value && lngInput && lngInput.value) {
+                  var existingLat = parseFloat(latInput.value);
+                  var existingLng = parseFloat(lngInput.value);
+                  directMap.setView([existingLat, existingLng], 15);
+                  setMarker(existingLat, existingLng);
+                }
+
+                var detectBtn = document.querySelector('[data-action*="redetect"]');
+                if (detectBtn) {
+                  detectBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (navigator.geolocation) {
+                      navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                          directMap.setView([position.coords.latitude, position.coords.longitude], 15);
+                          setMarker(position.coords.latitude, position.coords.longitude);
+                        },
+                        function(error) { alert('Unable to detect location: ' + error.message); }
+                      );
+                    } else {
+                      alert('Geolocation is not supported by your browser');
+                    }
+                  });
+                }
+              }, 100);
+            });
+          })();
+        </script>
+
+        <!-- Hidden coordinate fields -->
+        <%= form.hidden_field :latitude, data: { location_map_target: "latitude" } %>
+        <%= form.hidden_field :longitude, data: { location_map_target: "longitude" } %>
+
+        <!-- Address Field (auto-filled from map) -->
+        <div class="relative">
+          <div class="absolute inset-y-0 <%= I18n.locale == :ar ? 'right-0 pr-3' : 'left-0 pl-3' %> flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <%= form.text_field :location,
+              placeholder: "Address will be detected automatically...",
+              data: { location_map_target: "address" },
+              class: "block w-full #{I18n.locale == :ar ? 'pr-10 pl-3' : 'pl-10 pr-3'} py-3 border #{business.errors[:location].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} rounded-lg shadow-sm transition" %>
+        </div>
+        <p class="mt-2 text-sm text-gray-500">
+          Click on the map or drag the marker to set your business location. The address will be filled automatically.
+        </p>
+        <% if business.errors[:location].any? %>
+          <p class="mt-1 text-sm text-red-600"><%= business.errors[:location].first %></p>
         <% end %>
       </div>
     </div>

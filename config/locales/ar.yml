@@ -1,6 +1,144 @@
 ar:
   app_name: "حجز"
 
+  # ActiveRecord - Error Messages
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      not_saved:
+        one: "خطأ واحد منع حفظ %{resource}"
+        other: "%{count} أخطاء منعت حفظ %{resource}"
+      accepted: "يجب أن يكون مقبولاً"
+      blank: "لا يمكن أن يكون فارغاً"
+      confirmation: "لا يطابق %{attribute}"
+      empty: "لا يمكن أن يكون فارغاً"
+      equal_to: "يجب أن يساوي %{count}"
+      even: "يجب أن يكون عدداً زوجياً"
+      exclusion: "محجوز"
+      greater_than: "يجب أن يكون أكبر من %{count}"
+      greater_than_or_equal_to: "يجب أن يكون أكبر من أو يساوي %{count}"
+      in: "ليس ضمن القائمة"
+      inclusion: "ليس ضمن القائمة"
+      invalid: "غير صحيح"
+      less_than: "يجب أن يكون أقل من %{count}"
+      less_than_or_equal_to: "يجب أن يكون أقل من أو يساوي %{count}"
+      model_invalid: "التحقق فشل: %{errors}"
+      not_a_number: "ليس رقماً"
+      not_an_integer: "يجب أن يكون عدداً صحيحاً"
+      odd: "يجب أن يكون عدداً فردياً"
+      other_than: "يجب أن يكون مختلفاً عن %{count}"
+      present: "يجب أن يكون فارغاً"
+      required: "مطلوب"
+      taken: "مستخدم بالفعل"
+      too_long:
+        one: "طويل جداً (الحد الأقصى حرف واحد)"
+        other: "طويل جداً (الحد الأقصى %{count} أحرف)"
+      too_short:
+        one: "قصير جداً (الحد الأدنى حرف واحد)"
+        other: "قصير جداً (الحد الأدنى %{count} أحرف)"
+      wrong_length:
+        one: "طول خاطئ (يجب أن يكون حرف واحد)"
+        other: "طول خاطئ (يجب أن يكون %{count} أحرف)"
+    template:
+      body: "يوجد مشاكل في الحقول التالية:"
+      header:
+        one: "خطأ واحد منع حفظ %{model}"
+        other: "%{count} أخطاء منعت حفظ %{model}"
+
+  # ActiveRecord - Model Names & Attributes
+  activerecord:
+    models:
+      user: "المستخدم"
+      business: "العمل"
+      service: "الخدمة"
+      booking: "الحجز"
+      category: "الفئة"
+      subscription: "الاشتراك"
+    attributes:
+      user:
+        name: "الاسم"
+        email: "البريد الإلكتروني"
+        password: "كلمة المرور"
+        password_confirmation: "تأكيد كلمة المرور"
+        current_password: "كلمة المرور الحالية"
+        remember_me: "تذكرني"
+        role: "الدور"
+        avatar_url: "صورة الملف الشخصي"
+        provider: "مزود الخدمة"
+        uid: "معرف المستخدم"
+        created_at: "تاريخ الإنشاء"
+        updated_at: "تاريخ التحديث"
+      business:
+        name: "اسم العمل"
+        description: "الوصف"
+        category: "الفئة"
+        category_id: "الفئة"
+        user: "المالك"
+        user_id: "المالك"
+        open_time: "وقت الفتح"
+        close_time: "وقت الإغلاق"
+        phone_number: "رقم الهاتف"
+        location: "العنوان"
+        latitude: "خط العرض"
+        longitude: "خط الطول"
+        logo: "الشعار"
+        images: "الصور"
+        created_at: "تاريخ الإنشاء"
+        updated_at: "تاريخ التحديث"
+      service:
+        name: "اسم الخدمة"
+        description: "الوصف"
+        price: "السعر"
+        duration: "المدة"
+        business: "العمل"
+        business_id: "العمل"
+        created_at: "تاريخ الإنشاء"
+        updated_at: "تاريخ التحديث"
+      booking:
+        user: "العميل"
+        user_id: "العميل"
+        service: "الخدمة"
+        service_id: "الخدمة"
+        start_time: "وقت البدء"
+        end_time: "وقت الانتهاء"
+        status: "الحالة"
+        qr_code: "رمز QR"
+        notes: "ملاحظات"
+        created_at: "تاريخ الإنشاء"
+        updated_at: "تاريخ التحديث"
+      category:
+        name: "الاسم"
+        description: "الوصف"
+        created_at: "تاريخ الإنشاء"
+        updated_at: "تاريخ التحديث"
+      subscription:
+        user: "المستخدم"
+        user_id: "المستخدم"
+        status: "الحالة"
+        amount: "المبلغ"
+        currency: "العملة"
+        trial_ends_at: "تنتهي التجربة في"
+        current_period_start: "بداية الفترة الحالية"
+        current_period_end: "نهاية الفترة الحالية"
+        cancelled_at: "تاريخ الإلغاء"
+        created_at: "تاريخ الإنشاء"
+        updated_at: "تاريخ التحديث"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "البريد الإلكتروني لا يمكن أن يكون فارغاً"
+              invalid: "البريد الإلكتروني غير صحيح"
+              taken: "البريد الإلكتروني مستخدم بالفعل"
+            password:
+              blank: "كلمة المرور لا يمكن أن تكون فارغة"
+              too_short: "كلمة المرور قصيرة جداً (الحد الأدنى %{count} أحرف)"
+            password_confirmation:
+              confirmation: "تأكيد كلمة المرور لا يطابق كلمة المرور"
+            name:
+              blank: "الاسم لا يمكن أن يكون فارغاً"
+
   # Navigation
   nav:
     home: "الرئيسية"
@@ -347,3 +485,103 @@ ar:
     trial_option_title: "ابدأ تجربتك المجانية"
     trial_option_description: "احصل على أسبوعين من الوصول الكامل لجميع الميزات، مجانًا تمامًا. لا حاجة لبطاقة ائتمان."
     or_pay_now: "أو ادفع الآن للبدء فورًا"
+
+  # Authentication Pages
+  auth:
+    # Sign In Page
+    sign_in:
+      title: "تسجيل الدخول - R Booking"
+      header: "مرحباً بعودتك"
+      subtitle: "سجل دخولك للمتابعة إلى R Booking"
+      google_button: "متابعة مع Google"
+      divider: "أو سجل دخولك بالبريد الإلكتروني"
+      email_label: "البريد الإلكتروني"
+      email_placeholder: "you@example.com"
+      password_label: "كلمة المرور"
+      password_placeholder: "أدخل كلمة المرور"
+      forgot_password: "نسيت؟"
+      remember_me: "تذكرني لمدة 30 يوماً"
+      submit: "تسجيل الدخول"
+      no_account: "ليس لديك حساب؟"
+      sign_up_link: "سجل مجاناً"
+      privacy_policy: "سياسة الخصوصية"
+      terms_of_service: "شروط الخدمة"
+
+    # Sign Up Page
+    sign_up:
+      title: "إنشاء حساب - R Booking"
+      header: "إنشاء حساب"
+      subtitle: "انضم إلى R Booking وابدأ في حجز الخدمات"
+      google_button: "متابعة مع Google"
+      divider: "أو سجل باستخدام البريد الإلكتروني"
+      name_label: "الاسم الكامل"
+      name_placeholder: "أحمد محمد"
+      email_label: "البريد الإلكتروني"
+      email_placeholder: "you@example.com"
+      password_label: "كلمة المرور"
+      password_min: "(%{count} أحرف كحد أدنى)"
+      password_placeholder: "أنشئ كلمة مرور"
+      password_confirmation_label: "تأكيد كلمة المرور"
+      password_confirmation_placeholder: "أعد إدخال كلمة المرور"
+      role_label: "أريد أن"
+      role_client: "أحجز خدمات"
+      role_client_subtitle: "كعميل"
+      role_owner: "أقدم خدمات"
+      role_owner_subtitle: "كصاحب عمل"
+      submit: "إنشاء حساب"
+      have_account: "هل لديك حساب بالفعل؟"
+      sign_in_link: "سجل دخولك"
+      privacy_policy: "سياسة الخصوصية"
+      terms_of_service: "شروط الخدمة"
+
+    # Password Reset Page
+    reset_password:
+      title: "إعادة تعيين كلمة المرور - R Booking"
+      header: "إعادة تعيين كلمة المرور"
+      subtitle: "أدخل بريدك الإلكتروني لتلقي تعليمات إعادة التعيين"
+      email_label: "البريد الإلكتروني"
+      email_placeholder: "you@example.com"
+      submit: "إرسال تعليمات إعادة التعيين"
+      remember_password: "تتذكر كلمة المرور؟"
+      sign_in_link: "سجل دخولك"
+      privacy_policy: "سياسة الخصوصية"
+      terms_of_service: "شروط الخدمة"
+
+    # Change Password Page
+    change_password:
+      title: "تغيير كلمة المرور - R Booking"
+      header: "تغيير كلمة المرور"
+      subtitle: "أدخل كلمة المرور الجديدة أدناه"
+      new_password_label: "كلمة المرور الجديدة"
+      new_password_min: "(%{count} أحرف كحد أدنى)"
+      new_password_placeholder: "أدخل كلمة المرور الجديدة"
+      confirm_password_label: "تأكيد كلمة المرور الجديدة"
+      confirm_password_placeholder: "أعد إدخال كلمة المرور الجديدة"
+      submit: "تغيير كلمة المرور"
+      back_to_sign_in: "العودة إلى تسجيل الدخول"
+      privacy_policy: "سياسة الخصوصية"
+      terms_of_service: "شروط الخدمة"
+
+    # Edit Account Page
+    edit_account:
+      title: "تعديل الحساب"
+      header: "تعديل %{resource}"
+      email_label: "البريد الإلكتروني"
+      pending_confirmation: "في انتظار تأكيد: %{email}"
+      password_label: "كلمة المرور"
+      password_hint: "(اتركه فارغاً إذا كنت لا تريد تغييره)"
+      password_min: "%{count} أحرف كحد أدنى"
+      password_confirmation_label: "تأكيد كلمة المرور"
+      current_password_label: "كلمة المرور الحالية"
+      current_password_hint: "(نحتاج كلمة المرور الحالية لتأكيد تغييراتك)"
+      submit: "تحديث"
+      cancel_account: "إلغاء حسابي"
+      cancel_account_subtitle: "غير راضٍ؟"
+      confirm_cancel: "هل أنت متأكد؟"
+      back: "رجوع"
+
+    # Common Terms
+    common:
+      errors_prevented:
+        one: "خطأ واحد منع حفظ هذا %{resource}"
+        other: "%{count} أخطاء منعت حفظ هذا %{resource}"

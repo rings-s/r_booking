@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'dashboard#index'
     resources :users
-    get 'settings', to: 'settings#index', as: :settings
   end
 
   # Subscription routes

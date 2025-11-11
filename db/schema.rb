@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_09_051953) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_09_191240) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -58,7 +58,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_09_051953) do
     t.time "close_time"
     t.datetime "created_at", null: false
     t.text "description"
+    t.decimal "latitude", precision: 10, scale: 6
     t.string "location"
+    t.decimal "longitude", precision: 10, scale: 6
     t.string "name"
     t.time "open_time"
     t.string "phone_number"

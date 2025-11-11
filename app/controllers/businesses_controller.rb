@@ -109,6 +109,6 @@ class BusinessesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def business_params
-      params.require(:business).permit(:user_id, :name, :description, :location, :phone_number, :open_time, :close_time, :category_id, :logo, images: [])
+      params.require(:business).permit(:user_id, :name, :description, :location, :latitude, :longitude, :phone_number, :open_time, :close_time, :category_id, :logo, images: [])
     end
 end

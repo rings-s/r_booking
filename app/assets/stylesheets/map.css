@@ -1,0 +1,51 @@
+/* Leaflet Map Styles for Rails 8 */
+
+/* Ensure map container has proper dimensions */
+#map,
+#business-map {
+  width: 100%;
+  height: 320px;
+  min-height: 320px;
+  z-index: 1;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  z-index: 1;
+}
+
+/* Fix for Leaflet default marker icons in Rails asset pipeline */
+.leaflet-default-icon-path {
+  background-image: url('https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png');
+}
+
+/* Ensure map tiles load properly */
+.leaflet-tile {
+  filter: inherit;
+}
+
+/* Improve map control visibility */
+.leaflet-control-zoom a,
+.leaflet-control-layers-toggle {
+  background-color: white;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-control-zoom a:hover,
+.leaflet-control-layers-toggle:hover {
+  background-color: #f4f4f4;
+}
+
+/* Fix popup z-index */
+.leaflet-popup {
+  z-index: 1000;
+}
+
+/* Loading indicator styling */
+.leaflet-control.loading-indicator {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
