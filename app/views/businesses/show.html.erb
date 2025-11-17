@@ -55,7 +55,7 @@
         </div>
 
         <!-- Business Name and Info -->
-        <div class="flex-1 pb-4">
+        <div class="flex-1 mt-4 pb-4">
           <h1 class="text-4xl font-bold text-gray-900 mb-2"><%= @business.name %></h1>
           <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600">
             <% if @business.location.present? %>
@@ -126,32 +126,12 @@
                 </a>
               </div>
 
-              <div id="business-map" class="h-80 w-full rounded-lg border border-gray-300 shadow-sm"></div>
-
-              <script>
-                (function() {
-                  if (typeof L === 'undefined' || !document.getElementById('business-map')) return;
-
-                  document.addEventListener('DOMContentLoaded', function() {
-                    setTimeout(function() {
-                      var lat = <%= @business.latitude %>;
-                      var lng = <%= @business.longitude %>;
-                      var businessName = "<%= j @business.name %>";
-
-                      var businessMap = L.map('business-map').setView([lat, lng], 15);
-                      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        maxZoom: 19,
-                        attribution: '© OpenStreetMap'
-                      }).addTo(businessMap);
-
-                      var marker = L.marker([lat, lng]).addTo(businessMap);
-                      marker.bindPopup('<strong>' + businessName + '</strong><br>' +
-                                      'Lat: ' + lat.toFixed(6) + '<br>' +
-                                      'Lng: ' + lng.toFixed(6)).openPopup();
-                    }, 100);
-                  });
-                })();
-              </script>
+              <div id="business-map"
+                   data-controller="business-map"
+                   data-business-map-latitude-value="<%= @business.latitude %>"
+                   data-business-map-longitude-value="<%= @business.longitude %>"
+                   data-business-map-name-value="<%= @business.name %>"
+                   class="h-80 w-full rounded-lg border border-gray-300 shadow-sm"></div>
             </div>
           <% end %>
         </div>

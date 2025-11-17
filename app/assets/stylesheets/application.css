@@ -9,5 +9,4 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
-@import "navbar.css";
-@import "map.css";
+/* Note: Propshaft doesn't process @import statements. Include CSS files directly in the layout instead. */

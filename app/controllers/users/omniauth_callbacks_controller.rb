@@ -1,15 +1,19 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  skip_before_action :verify_authenticity_token, only: :google_oauth2
+  # CSRF protection is handled by omniauth-rails_csrf_protection gem
+  # The callback receives requests from Google's servers (external), not user's browser
 
   def google_oauth2
-    @user = User.from_omniauth(request.env['omniauth.auth'])
+    auth = request.env["omniauth.auth"]
+    @user = User.find_existing_oauth_user(auth)
 
-    if @user.persisted?
-      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
+    if @user&.persisted?
+      # Existing user - sign them in
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Google"
       sign_in_and_redirect @user, event: :authentication
     else
-      session['devise.google_data'] = request.env['omniauth.auth'].except('extra')
-      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+      # New user - redirect to role selection
+      session["devise.google_data"] = auth.except("extra").to_h
+      redirect_to new_users_oauth_role_selection_path
     end
   end
 

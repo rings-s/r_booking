@@ -376,3 +376,119 @@ en:
     trial_option_title: "Start Your Free Trial"
     trial_option_description: "Get 2 weeks of full access to all features, completely free. No credit card required."
     or_pay_now: "Or pay now to get started immediately"
+
+  # Authentication Pages
+  auth:
+    # Sign In Page
+    sign_in:
+      title: "Sign In - R Booking"
+      header: "Welcome Back"
+      subtitle: "Sign in to continue to R Booking"
+      google_button: "Continue with Google"
+      divider: "or sign in with email"
+      email_label: "Email"
+      email_placeholder: "you@example.com"
+      password_label: "Password"
+      password_placeholder: "Enter your password"
+      forgot_password: "Forgot?"
+      remember_me: "Remember me for 30 days"
+      submit: "Sign In"
+      no_account: "Don't have an account?"
+      sign_up_link: "Sign up free"
+      privacy_policy: "Privacy Policy"
+      terms_of_service: "Terms of Service"
+
+    # Sign Up Page
+    sign_up:
+      title: "Create Account - R Booking"
+      header: "Create Account"
+      subtitle: "Join R Booking and start booking services"
+      google_button: "Continue with Google"
+      divider: "or sign up with email"
+      name_label: "Full Name"
+      name_placeholder: "John Doe"
+      email_label: "Email"
+      email_placeholder: "you@example.com"
+      password_label: "Password"
+      password_min: "(%{count} characters minimum)"
+      password_placeholder: "Create a password"
+      password_confirmation_label: "Confirm Password"
+      password_confirmation_placeholder: "Re-enter your password"
+      role_label: "I want to"
+      role_client: "Book Services"
+      role_client_subtitle: "As a client"
+      role_owner: "Offer Services"
+      role_owner_subtitle: "As a business owner"
+      submit: "Create Account"
+      have_account: "Already have an account?"
+      sign_in_link: "Sign in"
+      privacy_policy: "Privacy Policy"
+      terms_of_service: "Terms of Service"
+
+    # Password Reset Page
+    reset_password:
+      title: "Reset Password - R Booking"
+      header: "Reset Password"
+      subtitle: "Enter your email to receive reset instructions"
+      email_label: "Email"
+      email_placeholder: "you@example.com"
+      submit: "Send Reset Instructions"
+      remember_password: "Remember your password?"
+      sign_in_link: "Sign in"
+      privacy_policy: "Privacy Policy"
+      terms_of_service: "Terms of Service"
+
+    # Change Password Page
+    change_password:
+      title: "Change Password - R Booking"
+      header: "Change Password"
+      subtitle: "Enter your new password below"
+      new_password_label: "New Password"
+      new_password_min: "(%{count} characters minimum)"
+      new_password_placeholder: "Enter new password"
+      confirm_password_label: "Confirm New Password"
+      confirm_password_placeholder: "Re-enter new password"
+      submit: "Change Password"
+      back_to_sign_in: "Back to sign in"
+      privacy_policy: "Privacy Policy"
+      terms_of_service: "Terms of Service"
+
+    # Edit Account Page
+    edit_account:
+      title: "Edit Account"
+      header: "Edit %{resource}"
+      email_label: "Email"
+      pending_confirmation: "Currently waiting confirmation for: %{email}"
+      password_label: "Password"
+      password_hint: "(leave blank if you don't want to change it)"
+      password_min: "%{count} characters minimum"
+      password_confirmation_label: "Confirm Password"
+      current_password_label: "Current Password"
+      current_password_hint: "(we need your current password to confirm your changes)"
+      submit: "Update"
+      cancel_account: "Cancel my account"
+      cancel_account_subtitle: "Unhappy?"
+      confirm_cancel: "Are you sure?"
+      back: "Back"
+
+    # OAuth Role Selection Page
+    oauth_role_selection:
+      title: "Complete Your Registration - R Booking"
+      header: "Almost Done!"
+      subtitle: "Just one more step - choose how you'll use R Booking"
+      role_label: "How would you like to use R Booking?"
+      role_client: "I want to book services"
+      role_client_description: "Browse businesses, book appointments, and manage your reservations"
+      role_owner: "I want to offer services"
+      role_owner_description: "Create your business, list services, and manage bookings from clients"
+      owner_note_title: "Business Owner Benefits"
+      owner_note_description: "As a business owner, you'll get a 2-week free trial to set up your business and start accepting bookings."
+      submit: "Complete Registration"
+      cancel: "Cancel and go back"
+      session_expired: "Your session has expired. Please try signing up again."
+
+    # Common Terms
+    common:
+      errors_prevented:
+        one: "1 error prohibited this %{resource} from being saved"
+        other: "%{count} errors prohibited this %{resource} from being saved"

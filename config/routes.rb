@@ -30,6 +30,10 @@ Rails.application.routes.draw do
   # Moyasar webhook endpoint
   post 'moyasar/webhooks', to: 'moyasar_webhooks#create'
 
+  # Geocoding proxy (for CORS-free Nominatim access)
+  get 'geocoding/reverse', to: 'geocoding#reverse'
+  get 'geocoding/search', to: 'geocoding#search'
+
   resources :queue_tickets
   resources :calendar_events
   resources :categories
@@ -59,6 +63,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+
+  # OAuth role selection (for new users signing up via Google)
+  namespace :users do
+    resource :oauth_role_selection, only: [:new, :create]
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

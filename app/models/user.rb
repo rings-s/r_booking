@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [:google_oauth2]
+         :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   enum :role, { client: 0, owner: 1, admin: 2 }
 
@@ -11,7 +11,8 @@ class User < ApplicationRecord
   has_many :bookings, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
 
-  def self.from_omniauth(auth)
+  # Find existing user by OAuth credentials or email (for linking accounts)
+  def self.find_existing_oauth_user(auth)
     # First, try to find user by provider and uid
     user = where(provider: auth.provider, uid: auth.uid).first
 
@@ -29,12 +30,21 @@ class User < ApplicationRecord
       end
     end
 
-    # If still not found, create a new user
-    user ||= where(provider: auth.provider, uid: auth.uid).first_or_create do |new_user|
+    user
+  end
+
+  # Legacy method for backwards compatibility (creates user with default client role)
+  def self.from_omniauth(auth)
+    user = find_existing_oauth_user(auth)
+
+    # If still not found, create a new user with default client role
+    user ||= create do |new_user|
       new_user.email = auth.info.email
       new_user.password = Devise.friendly_token[0, 20]
       new_user.name = auth.info.name
       new_user.avatar_url = auth.info.image
+      new_user.provider = auth.provider
+      new_user.uid = auth.uid
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # new_user.skip_confirmation!
@@ -80,7 +90,7 @@ class User < ApplicationRecord
     subscriptions.create!(
       status: :trial,
       amount: 99.00,
-      currency: 'SAR',
+      currency: "SAR",
       trial_ends_at: 2.weeks.from_now,
       current_period_start: Time.current,
       current_period_end: 2.weeks.from_now
@@ -100,16 +110,16 @@ class User < ApplicationRecord
     return nil unless owner?
 
     sub = current_subscription
-    return 'No active subscription. Please subscribe to create businesses.' unless sub
+    return "No active subscription. Please subscribe to create businesses." unless sub
 
     if sub.in_trial?
       "Trial period: #{sub.days_remaining} days remaining"
     elsif sub.valid_subscription?
       "Active subscription: #{sub.days_remaining} days remaining"
     elsif sub.ended?
-      'Subscription expired. Please renew to continue.'
+      "Subscription expired. Please renew to continue."
     else
-      'Subscription status unknown'
+      "Subscription status unknown"
     end
   end
 end

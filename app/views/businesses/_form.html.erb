@@ -104,14 +104,10 @@
       </div>
 
       <!-- Location Map -->
-      <script>
-        console.log('=== FORM SCRIPT: About to initialize location-map controller');
-        console.log('=== FORM SCRIPT: Leaflet available?', typeof L !== 'undefined');
-        console.log('=== FORM SCRIPT: Stimulus available?', typeof window.Stimulus !== 'undefined');
-      </script>
       <div data-controller="location-map"
-           data-location-map-latitude-value="<%= business.latitude %>"
-           data-location-map-longitude-value="<%= business.longitude %>">
+           data-location-map-latitude-value="<%= business.latitude || 0 %>"
+           data-location-map-longitude-value="<%= business.longitude || 0 %>"
+           data-turbo-permanent="false">
 
         <div class="flex items-center justify-between mb-2">
           <%= form.label :location, "Business Location", class: "block text-sm font-medium text-gray-700" %>
@@ -126,93 +122,27 @@
           </button>
         </div>
 
+        <!-- Address Search -->
+        <div class="relative mb-3">
+          <div class="flex gap-2">
+            <input type="text"
+                   data-location-map-target="search"
+                   placeholder="Search for an address (e.g., Riyadh, Jeddah, Mecca)"
+                   class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm">
+            <button type="button"
+                    data-action="click->location-map#searchAddress"
+                    class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium text-sm transition">
+              Search
+            </button>
+          </div>
+          <!-- Search Results Dropdown -->
+          <div data-location-map-target="searchResults"
+               class="hidden absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+          </div>
+        </div>
+
         <!-- Map Container -->
         <div id="map" data-location-map-target="map" class="w-full h-80 rounded-lg border border-gray-300 mb-3" style="z-index: 1;"></div>
-
-        <script>
-          (function() {
-            if (typeof L === 'undefined' || !document.getElementById('map')) return;
-
-            document.addEventListener('DOMContentLoaded', function() {
-              setTimeout(function() {
-                var directMap = L.map('map').setView([24.7136, 46.6753], 13);
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                  maxZoom: 19,
-                  attribution: '© OpenStreetMap'
-                }).addTo(directMap);
-
-                var marker = null;
-                var latInput = document.querySelector('input[name="business[latitude]"]');
-                var lngInput = document.querySelector('input[name="business[longitude]"]');
-                var addressInput = document.querySelector('input[name="business[location]"]');
-
-                function updateLocation(lat, lng) {
-                  if (latInput) latInput.value = lat.toFixed(6);
-                  if (lngInput) lngInput.value = lng.toFixed(6);
-
-                  fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
-                    .then(response => response.json())
-                    .then(data => {
-                      if (addressInput && data.display_name) {
-                        addressInput.value = data.display_name;
-                      }
-                    })
-                    .catch(err => console.warn('Geocoding error:', err));
-                }
-
-                function setMarker(lat, lng) {
-                  if (marker) directMap.removeLayer(marker);
-                  marker = L.marker([lat, lng], { draggable: true }).addTo(directMap);
-                  marker.bindPopup(`Lat: ${lat.toFixed(6)}<br>Lng: ${lng.toFixed(6)}`).openPopup();
-                  marker.on('dragend', function(e) {
-                    var pos = e.target.getLatLng();
-                    updateLocation(pos.lat, pos.lng);
-                    marker.setPopupContent(`Lat: ${pos.lat.toFixed(6)}<br>Lng: ${pos.lng.toFixed(6)}`);
-                  });
-                  updateLocation(lat, lng);
-                }
-
-                directMap.on('click', function(e) {
-                  setMarker(e.latlng.lat, e.latlng.lng);
-                });
-
-                if (navigator.geolocation && (!latInput || !latInput.value)) {
-                  navigator.geolocation.getCurrentPosition(
-                    function(position) {
-                      directMap.setView([position.coords.latitude, position.coords.longitude], 15);
-                      setMarker(position.coords.latitude, position.coords.longitude);
-                    },
-                    function(error) { console.warn('Geolocation error:', error.message); },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-                  );
-                } else if (latInput && latInput.value && lngInput && lngInput.value) {
-                  var existingLat = parseFloat(latInput.value);
-                  var existingLng = parseFloat(lngInput.value);
-                  directMap.setView([existingLat, existingLng], 15);
-                  setMarker(existingLat, existingLng);
-                }
-
-                var detectBtn = document.querySelector('[data-action*="redetect"]');
-                if (detectBtn) {
-                  detectBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if (navigator.geolocation) {
-                      navigator.geolocation.getCurrentPosition(
-                        function(position) {
-                          directMap.setView([position.coords.latitude, position.coords.longitude], 15);
-                          setMarker(position.coords.latitude, position.coords.longitude);
-                        },
-                        function(error) { alert('Unable to detect location: ' + error.message); }
-                      );
-                    } else {
-                      alert('Geolocation is not supported by your browser');
-                    }
-                  });
-                }
-              }, 100);
-            });
-          })();
-        </script>
 
         <!-- Hidden coordinate fields -->
         <%= form.hidden_field :latitude, data: { location_map_target: "latitude" } %>

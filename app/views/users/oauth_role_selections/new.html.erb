@@ -1,0 +1,110 @@
+<% content_for :title, t('auth.oauth_role_selection.title') %>
+
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2"><%= t('auth.oauth_role_selection.header') %></h1>
+      <p class="text-gray-600"><%= t('auth.oauth_role_selection.subtitle') %></p>
+    </div>
+
+    <!-- User Info Card -->
+    <% oauth_data = session['devise.google_data'] %>
+    <% if oauth_data %>
+      <div class="bg-gray-50 rounded-xl p-4 mb-6 flex items-center gap-4">
+        <% if oauth_data.dig('info', 'image') %>
+          <%= image_tag oauth_data['info']['image'], class: 'w-12 h-12 rounded-full', alt: 'Profile' %>
+        <% else %>
+          <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+            <span class="text-blue-600 font-semibold text-lg"><%= oauth_data.dig('info', 'name')&.first&.upcase || 'U' %></span>
+          </div>
+        <% end %>
+        <div>
+          <p class="font-semibold text-gray-900"><%= oauth_data.dig('info', 'name') %></p>
+          <p class="text-sm text-gray-600"><%= oauth_data.dig('info', 'email') %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Main Card -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+      <%= form_with model: @user, url: users_oauth_role_selection_path, method: :post, local: true, html: { class: 'space-y-6' } do |f| %>
+        <%= render "devise/shared/error_messages", resource: @user %>
+
+        <!-- Role Selection -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-4"><%= t('auth.oauth_role_selection.role_label') %></label>
+          <div class="space-y-4">
+            <!-- Client Role -->
+            <div>
+              <input type="radio" name="user[role]" id="user_role_client" value="client" checked class="hidden peer" />
+              <label for="user_role_client" class="flex items-center p-4 bg-white border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-300 hover:bg-blue-50 peer-checked:border-blue-600 peer-checked:bg-blue-50 transition-all duration-200">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="block font-semibold text-gray-900"><%= t('auth.oauth_role_selection.role_client') %></span>
+                  <span class="block text-sm text-gray-500 mt-1"><%= t('auth.oauth_role_selection.role_client_description') %></span>
+                </div>
+                <div class="flex-shrink-0 ml-4 peer-checked:block">
+                  <svg class="w-5 h-5 text-blue-600 hidden peer-checked:block" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </label>
+            </div>
+
+            <!-- Owner Role -->
+            <div>
+              <input type="radio" name="user[role]" id="user_role_owner" value="owner" class="hidden peer" />
+              <label for="user_role_owner" class="flex items-center p-4 bg-white border-2 border-gray-200 rounded-xl cursor-pointer hover:border-purple-300 hover:bg-purple-50 peer-checked:border-purple-600 peer-checked:bg-purple-50 transition-all duration-200">
+                <div class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4">
+                  <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="block font-semibold text-gray-900"><%= t('auth.oauth_role_selection.role_owner') %></span>
+                  <span class="block text-sm text-gray-500 mt-1"><%= t('auth.oauth_role_selection.role_owner_description') %></span>
+                </div>
+                <div class="flex-shrink-0 ml-4">
+                  <svg class="w-5 h-5 text-purple-600 hidden peer-checked:block" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Owner Note -->
+        <div class="bg-purple-50 rounded-lg p-4 border border-purple-100">
+          <div class="flex">
+            <svg class="w-5 h-5 text-purple-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div class="text-sm text-purple-700">
+              <p class="font-medium mb-1"><%= t('auth.oauth_role_selection.owner_note_title') %></p>
+              <p><%= t('auth.oauth_role_selection.owner_note_description') %></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <%= f.submit t('auth.oauth_role_selection.submit'), class: 'w-full py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer' %>
+      <% end %>
+    </div>
+
+    <!-- Cancel Link -->
+    <div class="mt-6 text-center">
+      <%= link_to t('auth.oauth_role_selection.cancel'), new_user_registration_path, class: 'text-sm text-gray-600 hover:text-gray-900 transition' %>
+    </div>
+  </div>
+</div>

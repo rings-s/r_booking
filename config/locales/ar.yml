@@ -580,6 +580,22 @@ ar:
       confirm_cancel: "هل أنت متأكد؟"
       back: "رجوع"
 
+    # OAuth Role Selection Page
+    oauth_role_selection:
+      title: "أكمل التسجيل - R Booking"
+      header: "أنت على وشك الانتهاء!"
+      subtitle: "خطوة أخيرة فقط - اختر كيف ستستخدم R Booking"
+      role_label: "كيف تريد استخدام R Booking؟"
+      role_client: "أريد حجز خدمات"
+      role_client_description: "تصفح الأعمال، احجز مواعيد، وأدر حجوزاتك"
+      role_owner: "أريد تقديم خدمات"
+      role_owner_description: "أنشئ عملك، أضف خدمات، وأدر حجوزات العملاء"
+      owner_note_title: "مزايا صاحب العمل"
+      owner_note_description: "كصاحب عمل، ستحصل على فترة تجريبية مجانية لمدة أسبوعين لإعداد عملك والبدء في قبول الحجوزات."
+      submit: "إكمال التسجيل"
+      cancel: "إلغاء والعودة"
+      session_expired: "انتهت صلاحية جلستك. يرجى المحاولة مرة أخرى."
+
     # Common Terms
     common:
       errors_prevented:
