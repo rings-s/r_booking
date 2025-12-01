@@ -77,7 +77,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 
 # qr code
-gem "rqrcode", "~> 3.0"         # Generate QR codes
+gem "rqrcode", "~> 3.1"         # Generate QR codes
 gem "chunky_png"                # PNG generation for QR codes
 gem 'friendly_id'        # SEO-friendly URLs for businesses/services
 
